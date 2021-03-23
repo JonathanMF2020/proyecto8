@@ -1,7 +1,7 @@
 # proyecto8
 
 Para hacer una rama
-- git branch "Nombre de la rama" (Generara la rama en casa de no tenerla)
+- git branch "Nombre de la rama" (Generara la rama en caso de no tenerla)
 -  git checkout "Nombre de la rama"(Aqui te situara en tu rama)
 
 Subir un update
