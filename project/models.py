@@ -28,3 +28,13 @@ class Role(RoleMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(255))
+    
+
+class MateriaPrima(db.Model):
+    __tablename__ = "materia_prima"
+    id = db.Column(db.Integer,primary_key=True)
+    nombre = db.Column(db.String(50))
+    precio = db.Column(db.Float)
+    cantidad = db.Column(db.Float)
+    unidad = db.Column(db.String(50))
+    estatus = db.Column(db.Integer)
