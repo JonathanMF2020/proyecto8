@@ -1,0 +1,9 @@
+{% extends "base.html" %} {% block content %}
+<form action="{{url_for('main.material_add')}}" method="post">
+    <input type="text" name="nombre" id="nombre" placeholder="Ingresa el nombre">
+    <input type="number" name="precio" id="precio" placeholder="Ingresa el precio">
+    <input type="number" name="cantidad" id="cantidad" placeholder="Ingresa el cantidad">
+    <input type="text" name="unidad" id="unidad" placeholder="Ingresa el unidad">
+    <input type="submit" value="Registrar">
+</form>
+{% endblock %}

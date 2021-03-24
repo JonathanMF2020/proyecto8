@@ -1,0 +1,10 @@
+{% extends "base.html" %} {% block content %}
+<form action="{{url_for('main.material_edit')}}" method="post">
+    <input type="hidden" name="id" id="id" value="{{materia.id}}">
+    <input type="text" name="nombre" id="nombre" placeholder="Ingresa el nombre" value="{{materia.nombre}}">
+    <input type=" number " name="precio " id="precio " placeholder="Ingresa el precio " value="{{materia.precio}}">
+    <input type="number" name="cantidad" id="cantidad" placeholder="Ingresa el cantidad" value="{{materia.cantidad}}">
+    <input type=" text " name="unidad " id="unidad " placeholder="Ingresa el unidad " value="{{materia.unidad}}">
+    <input type="submit" value="Editar">
+</form>
+{% endblock %}

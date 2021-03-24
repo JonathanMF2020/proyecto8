@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block content %} {% if materias|length > 0 %}
+<a href="{{url_for('main.material_add')}}">Registrar</a>
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Unidad de medida</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%for materia in materias%}
+        <tr id="{{materia.id}}">
+            <th scope="row">{{materia.nombre}}</th>
+            <td>{{materia.cantidad}}</td>
+            <td>{{materia.precio}}</td>
+            <td>{{materia.unidad}}</td>
+            <td><a href="{{url_for('main.material_edit',id=materia.id)}}">Editar</a><a onclick="eliminarMateria({{materia.id}})">Eliminar</a></td>
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
+
+{% else %}
+<p>No tienes materia prima registrada</p>
+<a href="{{url_for('main.material_add')}}">Registrar</a> {% endif %} {% endblock %}
