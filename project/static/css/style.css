@@ -1,0 +1,44 @@
+.form-element{
+    color: #DB7B7B;
+    border-color: #DB7B7B; 
+    background-color: #DB7B7B;
+}
+
+.form-label{
+    color: #4787ed;
+}
+
+.btn-rose{
+    color: white;
+    border-color: #DB7B7B; 
+    background-color: #DB7B7B;
+}
+
+.btn-rose:hover{
+    color: white;
+    border-color: #b96969; 
+    background-color: #b96969;
+}
+.btn-search{
+    color: white;
+    border-color: #DB7B7B; 
+    background-color: #DB7B7B;
+    border-top-left-radius: 0%;
+    border-bottom-left-radius: 0%;
+}
+
+.btn-search:hover{
+    color: white;
+    border-color: #b96969; 
+    background-color: #b96969;
+    border-top-left-radius: 0%;
+    border-bottom-left-radius: 0%;
+}
+
+.search{
+    color: #DB7B7B;
+    border-color: #DB7B7B; 
+    background-color: #f3f3f3;
+    border-top-right-radius: 0%;
+    border-bottom-right-radius: 0%;
+}
