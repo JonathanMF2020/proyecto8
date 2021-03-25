@@ -4,4 +4,3 @@ flask-security
 mysqlclient
 flask-marshmallow
 bcrypt
-webos
