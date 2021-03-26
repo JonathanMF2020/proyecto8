@@ -12,7 +12,7 @@ def create_app():
     
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SECRET_KEY'] = os.urandom(24)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@localhost/proyecto8'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost/proyecto8'
     app.logger.debug("Conecto a la base de datos")
     app.config['SECURITY_PASSWORD_SALT'] = 'thissecretssalt'
 

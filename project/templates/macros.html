@@ -1,151 +1,322 @@
+{% macro header_clientes() %}
+
+    <th>id</th>
+    <th>Empresa</th>
+    <th>Contacto</th>
+    <th>Email</th>
+    <th>Teléfono</th>
+    <th>Dirección</th>
+    <th>RFC</th>
+    <th>Acciones</th>
+
+{% endmacro %}
+
+{% macro header_proveedores() %}
+
+    <th>id</th>
+    <th>Empresa</th>
+    <th>Contacto</th>
+    <th>Email</th>
+    <th>Teléfono</th>
+    <th>Dirección</th>
+    <th>RFC</th>
+    <th>Acciones</th>
+
+{% endmacro %}
+
+{% macro header_productos() %}
+
+    <th>id</th>
+    <th>Nombre</th>
+    <th>Descripción</th>
+    <th>Precio</th>
+    <th>Cantidad</th>
+    <th>Acciones</th>
+
+{% endmacro %}
+
+{% macro header_materia() %}
+
+    <th>id</th>
+    <th>Nombre</th>
+    <th>Costo</th>
+    <th>Cantidad</th>
+    <th>Acciones</th>
+
+{% endmacro %}
+
+{% macro header_compras() %}
+
+    <th>Num. Compra</th>
+    <th>Proveedor</th>
+    <th>Costo</th>
+    <th>Fecha</th>
+    <th>Comentarios</th>
+    <th>Acciones</th>
+
+{% endmacro %}
+
+{% macro header_ventas() %}
+
+    <th>Num. Venta</th>
+    <th>Cliente</th>
+    <th>Precio</th>
+    <th>Fecha</th>
+    <th>Comentarios</th>
+    <th>Acciones</th>
+
+{% endmacro %}
+
+{% macro table_clientes(clientes) %}
+
+    {% for cliente in clientes %}
+    <tr>
+        <td>{{cliente.id_cliente}}</td>
+        <td>{{cliente.nombre_empresa}}</td>
+        <td>{{cliente.contacto}}</td>
+        <td>{{cliente.eamil}}</td>
+        <td>{{cliente.telefono}}</td>
+        <td>{{cliente.direccion}}</td>
+        <td>{{cliente.rfc}}</td>
+        <td>
+            <a onclick="decidirCliente('{{cliente}}')" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
+            <a onclick="eliminarCliente('{{cliente.id}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
+        </td>
+    </tr>
+    {% endfor %}
+
+{% endmacro %}
+
+{% macro table_proveedores(proveedores) %}
+
+    {% for proveedor in proveedores %}
+    <tr>
+        <td>{{proveedor.id_proveedor}}</td>
+        <td>{{proveedor.nombre_empresa}}</td>
+        <td>{{proveedor.contacto}}</td>
+        <td>{{proveedor.eamil}}</td>
+        <td>{{proveedor.telefono}}</td>
+        <td>{{proveedor.direccion}}</td>
+        <td>{{proveedor.rfc}}</td>
+        <td>
+            <a onclick="decidirProveedor('{{proveedor}}')" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
+            <a onclick="eliminarProveedor('{{proveedor.id_proveedor}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
+        </td>
+    </tr>
+    {% endfor %}
+
+{% endmacro %}
+
+{% macro table_productos(productos) %}
+
+    {% for producto in productos %}
+    <tr>
+        <td>{{producto.id_producto}}</td>
+        <td>{{producto.nombre}}</td>
+        <td>{{producto.descripcion}}</td>
+        <td>{{producto.precio}}</td>
+        <td>{{producto.cantidad}}</td>
+        <td>
+            <a onclick="decidirProducto('{{producto}}')" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
+            <a onclick="agregarEjemplares('{{producto}}')" class="btn-small btn-warning btn text-white"><i class="fas fa-plus"></i></a>
+            <a onclick="eliminarProducto('{{producto.id_producto}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
+        </td>
+    </tr>
+    {% endfor %}
+
+{% endmacro %}
+
+{% macro table_materia(materias) %}
+
+    {% for materia in materias %}
+    <tr>
+        <td>{{materia.id_materia}}</td>
+        <td>{{materia.nombre}}</td>
+        <td>{{materia.precio}}</td>
+        <td>{{materia.cantidad}} {{materia.unidad}}</td>
+        <td>
+            <a onclick="decidirMateria('{{materia}}')" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
+            <a onclick="eliminarMateria('{{materia.id_materia}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
+        </td>
+    </tr>
+    {% endfor %}
+
+{% endmacro %}
+
+{% macro table_compras(compras) %}
+
+    {% for compra in compras %}
+    <tr>
+        <td>{{compra.id_compra}}</td>
+        <td>{{compra.proveedor}}</td>
+        <td>{{compra.precio}}</td>
+        <td>{{compra.fecha}}</td>
+        <td>{{compra.comentarios}}</td>
+        <td>
+            <a onclick="detalleCompra('{{compra}}')" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-eye"></i></a>
+            <a onclick="eliminarCompra('{{compra.id_compra}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
+        </td>
+    </tr>
+    {% endfor %}
+
+{% endmacro %}
+
+{% macro table_ventas(ventas) %}
+
+    {% for venta in ventas %}
+    <tr>
+        <td>{{venta.id_venta}}</td>
+        <td>{{venta.cliente}}</td>
+        <td>{{venta.precio}}</td>
+        <td>{{venta.fecha}}</td>
+        <td>{{venta.comentarios}}</td>
+        <td>
+            <a onclick="detalleVenta('{{venta}}')" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-eye"></i></a>
+            <a onclick="eliminarVenta('{{venta.id_venta}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
+        </td>
+    </tr>
+    {% endfor %}
+
+{% endmacro %}
+
+{% macro form_clientes() %}
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtNombreEmpresa" class="form-control-label form-label">Nombre Empresa</label>
+        <input id="txtNombreEmpresa" name="txtNombreEmpresa" type="text" class="form-control form-element col-12" required>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtEmail" class="form-control-label form-label">Email</label>
+        <input id="txtEmail" name="txtEmail" type="email" class="form-control form-element col-12" required>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtTelefono" class="form-control-label form-label">Telefono</label>
+        <input id="txtTelefono" name="txtTelefono" type="text" class="form-control form-element col-12" required>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtDireccion" class="form-control-label form-label">Dirección</label>
+        <input id="txtDireccion" name="txtDireccion" type="text" class="form-control form-element col-12" required>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtContacto" class="form-control-label form-label">Contacto</label>
+        <input id="txtContacto" name="txtContacto" type="text" class="form-control form-element col-12" required>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtRFC" class="form-control-label form-label">RFC</label>
+        <input id="txtRFC" name="txtRFC" type="text" class="form-control form-element col-12" required>
+    </div>
+{% endmacro %}
+
+{% macro form_proveedores() %}
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtNombreEmpresa" class="form-control-label form-label">Nombre Empresa</label>
+        <input id="txtNombreEmpresa" name="txtNombreEmpresa" type="text" class="form-control form-element col-12" required>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtEmail" class="form-control-label form-label">Email</label>
+        <input id="txtEmail" name="txtEmail" type="email" class="form-control form-element col-12" required>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtTelefono" class="form-control-label form-label">Telefono</label>
+        <input id="txtTelefono" name="txtTelefono" type="text" class="form-control form-element col-12" required>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtDireccion" class="form-control-label form-label">Dirección</label>
+        <input id="txtDireccion" name="txtDireccion" type="text" class="form-control form-element col-12" required>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtContacto" class="form-control-label form-label">Contacto</label>
+        <input id="txtContacto" name="txtContacto" type="text" class="form-control form-element col-12" required>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtRFC" class="form-control-label form-label">RFC</label>
+        <input id="txtRFC" name="txtRFC" type="text" class="form-control form-element col-12" required>
+    </div>
+{% endmacro %}
+
+{% macro form_productos() %}
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtNombre" class="form-control-label form-label">Nombre</label>
+        <input id="txtNombre" name="txtNombre" type="text" class="form-control form-element col-12" required>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtPrecio" class="form-control-label form-label">Precio</label>
+        <input id="txtPrecio" name="txtPrecio" type="textarea" class="form-control form-element col-12" required>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtDescripcion" class="form-control-label form-label">Descripción</label>
+        <textarea class="form-control form-element" id="txtDescripcion" name="txtDescripcion" rows="3" required></textarea>
+    </div>
+{% endmacro %}
+
+{% macro form_materia() %}
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtNombre" class="form-control-label form-label">Nombre</label>
+        <input id="txtNombre" name="txtNombre" type="text" class="form-control form-element col-12" required>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtPrecio" class="form-control-label form-label">Costo</label>
+        <input id="txtPrecio" name="txtPrecio" type="text" class="form-control form-element col-12" required>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="lstUnidad" class="form-control-label form-label">Unidad</label>
+        <select id="lstUnidad" name="lstUnidad" class="form-control form-element">
+
+        </select>
+    </div>
+
+{% endmacro %}
+
 {% macro render_table(objects, type) %}
 <div class="table-responsive col-12">
     <table class="table table-striped">
         <thead class="text-white" style="background-color: #DB7B7B;">
             <tr>
                 {% if type=="clientes" %}
-                    <th>id</th>
-                    <th>Empresa</th>
-                    <th>Contacto</th>
-                    <th>Email</th>
-                    <th>Teléfono</th>
-                    <th>Dirección</th>
-                    <th>RFC</th>
-                    <th>Acciones</th>
+                    {{header_clientes()}}
                 {% elif type=="proveedores" %}
-                    <th>id</th>
-                    <th>Empresa</th>
-                    <th>Contacto</th>
-                    <th>Email</th>
-                    <th>Teléfono</th>
-                    <th>Dirección</th>
-                    <th>RFC</th>
-                    <th>Acciones</th>
+                    {{header_proveedores()}}
                 {% elif type=="productos" %}
-                    <th>id</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                    <th>Acciones</th>
+                    {{header_productos()}}
                 {% elif type=="materia" %}
-                    <th>id</th>
-                    <th>Nombre</th>
-                    <th>Costo</th>
-                    <th>Cantidad</th>
-                    <th>Acciones</th>
+                    {{header_materia()}}
                 {% elif type=="compras" %}
-                    <th>Num. Compra</th>
-                    <th>Proveedor</th>
-                    <th>Costo</th>
-                    <th>Fecha</th>
-                    <th>Comentarios</th>
-                    <th>Acciones</th>
+                    {{header_compras()}}
                 {% elif type=="ventas" %}
-                    <th>Num. Venta</th>
-                    <th>Cliente</th>
-                    <th>Costo</th>
-                    <th>Fecha</th>
-                    <th>Comentarios</th>
-                    <th>Acciones</th>
-                {% elif type=="usuarios" %}
-                    <th>Usuario</th>
-                    <th>Rol</th>
-                    <th>Activo</th>
+                    {{header_ventas()}}
                 {% endif %}
             </tr>
         </thead>
         <tbody class="text-black">
             {% if type=="clientes" %}
-                {% for cliente in objects %}
-                    <tr>
-                        <td>{{cliente.id_cliente}}</td>
-                        <td>{{cliente.nombre_empresa}}</td>
-                        <td>{{cliente.contacto}}</td>
-                        <td>{{cliente.eamil}}</td>
-                        <td>{{cliente.telefono}}</td>
-                        <td>{{cliente.direccion}}</td>
-                        <td>{{cliente.rfc}}</td>
-                        <td>
-                            <a onclick="decidirCliente('{{cliente}}')" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
-                            <a onclick="eliminarCliente('{{cliente.id}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
-                {% endfor %}
+                {{table_clientes(objects)}}
             {% elif type=="proveedores" %}
-                {% for proveedor in objects %}
-                    <tr>
-                        <td>{{proveedor.id_proveedor}}</td>
-                        <td>{{proveedor.nombre_empresa}}</td>
-                        <td>{{proveedor.contacto}}</td>
-                        <td>{{proveedor.eamil}}</td>
-                        <td>{{proveedor.telefono}}</td>
-                        <td>{{proveedor.direccion}}</td>
-                        <td>{{proveedor.rfc}}</td>
-                        <td>
-                            <a onclick="decidirProveedor('{{proveedor}}')" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
-                            <a onclick="eliminarProveedor('{{proveedor.id_proveedor}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
-                {% endfor %}
+                {{table_proveedores(objects)}}
             {% elif type=="productos" %}
-                {% for producto in objects %}
-                    <tr>
-                        <td>{{producto.id_producto}}</td>
-                        <td>{{producto.nombre}}</td>
-                        <td>{{producto.descripcion}}</td>
-                        <td>{{producto.precio}}</td>
-                        <td>{{producto.cantidad}}</td>
-                        <td>
-                            <a onclick="decidirProducto('{{producto}}')" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
-                            <a onclick="agregarEjemplares('{{producto}}')" class="btn-small btn-warning btn text-white"><i class="fas fa-plus"></i></a>
-                            <a onclick="eliminarProducto('{{producto.id_producto}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
-                {% endfor %}
+                {{table_productos(objects)}}
             {% elif type=="materia" %}
-                {% for materia in objects %}
-                    <tr>
-                        <td>{{materia.id_materia}}</td>
-                        <td>{{materia.nombre}}</td>
-                        <td>{{materia.precio}}</td>
-                        <td>{{materia.cantidad}} {{materia.unidad}}</td>
-                        <td>
-                            <a onclick="decidirMateria('{{materia}}')" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
-                            <a onclick="eliminarMateria('{{materia.id_materia}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
-                {% endfor %}
+                {{table_materia(objects)}}
             {% elif type=="compras" %}
-                {% for compra in objects %}
-                    <tr>
-                        <td>{{compra.id_compra}}</td>
-                        <td>{{compra.proveedor}}</td>
-                        <td>{{compra.precio}}</td>
-                        <td>{{compra.fecha}}</td>
-                        <td>{{compra.comentarios}}</td>
-                        <td>
-                            <a onclick="decidirCompra('{{compra}}')" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
-                            <a onclick="eliminarCompra('{{compra.id_compra}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
-                {% endfor %}
+                {{table_compras(objects)}}
             {% elif type=="ventas" %}
-                {% for venta in objects %}
-                    <tr>
-                        <td>{{venta.id_venta}}</td>
-                        <td>{{venta.cliente}}</td>
-                        <td>{{venta.precio}}</td>
-                        <td>{{venta.fecha}}</td>
-                        <td>{{venta.comentarios}}</td>
-                        <td>
-                            <a onclick="decidirVenta('{{venta}}')" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
-                            <a onclick="eliminarVenta('{{venta.id_venta}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
-                {% endfor %}
+                {{table_ventas(objects)}}
             {% endif %}
         </tbody>
     </table>
 </div>
+{% endmacro %}
+
+{% macro render_form(type) %}
+    {% if type=="clientes" %}
+        {{form_clientes()}}
+    {% elif type=="proveedores" %}
+        {{form_proveedores()}}
+    {% elif type=="productos" %}
+        {{form_productos()}}
+    {% elif type=="materia" %}
+        {{form_materia()}}
+    {% elif type=="compras" %}
+        {{form_compras()}}
+    {% elif type=="ventas" %}
+        {{form_ventas()}}
+    {% endif %}
 {% endmacro %}
