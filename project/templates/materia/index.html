@@ -15,20 +15,20 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalMateriaLabel">Modal title</h5>
+                <h5 class="modal-title" id="modalMateriaLabel">Agregar material</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
             </div>
-            <div class="modal-body">
-                <form method="POST" action="/materias/guardar" class="form form-inline col-12">
-                    {{render_form("materia")}}
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-success">Guardar</button>
-                </form>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-            </div>
+            <form method="POST" action="{{url_for('materias.guardar')}}" class="form form-inline col-12">
+                <div class="modal-body">
+                        {{render_form("materia")}}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

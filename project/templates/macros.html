@@ -35,6 +35,7 @@
 <th>Nombre</th>
 <th>Costo</th>
 <th>Cantidad</th>
+<th>Unidad</th>
 <th>Acciones</th>
 
 {% endmacro %} {% macro header_compras() %}
@@ -98,13 +99,14 @@
 </tr>
 {% endfor %} {% endmacro %} {% macro table_materia(materias) %} {% for materia in materias %}
 <tr>
-    <td>{{materia.id_materia}}</td>
+    <td>{{materia.id}}</td>
     <td>{{materia.nombre}}</td>
-    <td>{{materia.precio}}</td>
-    <td>{{materia.cantidad}} {{materia.unidad}}</td>
-    <td>
-        <a onclick="decidirMateria('{{materia}}')" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
-        <a onclick="eliminarMateria('{{materia.id_materia}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
+    <td>{{materia.costo}}</td>
+    <td>{{materia.cantidad}}</td>
+    <td>{{materia.unidad}}</td>
+    <td>   
+        <a onclick="decidirMateria(1)" id="btnMateria" data-name="{{materia.toJson()}}" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
+        <a onclick="eliminarMateria('{{materia.id}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
     </td>
 </tr>
 {% endfor %} {% endmacro %} {% macro table_compras(compras) %} {% for compra in compras %}
@@ -195,19 +197,26 @@
     <textarea class="form-control form-element" id="txtDescripcion" name="txtDescripcion" rows="3" required></textarea>
 </div>
 {% endmacro %} {% macro form_materia() %}
+<input type="hidden" name="txtId" id="txtId">
 <div class="form-group col-12 p-0 mb-2">
     <label for="txtNombre" class="form-control-label form-label">Nombre</label>
     <input id="txtNombre" name="txtNombre" type="text" class="form-control form-element col-12" required>
 </div>
 <div class="form-group col-12 p-0 mb-2">
-    <label for="txtPrecio" class="form-control-label form-label">Costo</label>
-    <input id="txtPrecio" name="txtPrecio" type="text" class="form-control form-element col-12" required>
+    <label for="txtCosto" class="form-control-label form-label">Costo</label>
+    <input id="txtCosto" name="txtCosto" type="number" class="form-control form-element col-12" required>
+</div>
+<div class="form-group col-12 p-0 mb-2">
+    <label for="txtCantidad" class="form-control-label form-label">Cantidad</label>
+    <input id="txtCantidad" name="txtCantidad" type="number" class="form-control form-element col-12" required>
 </div>
 <div class="form-group col-12 p-0 mb-2">
     <label for="lstUnidad" class="form-control-label form-label">Unidad</label>
     <select id="lstUnidad" name="lstUnidad" class="form-control form-element">
-
-        </select>
+        <option value="litro">Litros</option>
+        <option value="metro">Metros</option>
+        <option value="unidad">Unidad</option>
+    </select>
 </div>
 
 {% endmacro %} {% macro render_table(objects, type) %}
