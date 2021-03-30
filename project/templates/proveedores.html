@@ -16,21 +16,21 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalProductos" tabindex="-1" role="dialog" aria-labelledby="modalProductosLabel" aria-hidden="true">
+<div class="modal fade" id="modalProvedores" tabindex="-1" role="dialog" aria-labelledby="modalProvedoresLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="modalProductosLabel">Modal title</h5>
+          <h5 class="modal-title" id="modalProvedoresLabel">Modal title</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-            <form method="POST" action="/productos/guardar" class="form form-inline col-12">
+            <form method="POST" action="/prveedores/guardar" class="form form-inline col-12">
                 {{render_form("proveedores")}}
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-success">Guardar</button>
+          <button type="submit" class="btn btn-success" name="btnGuardar" id="btnGuardar">Guardar</button>
           </form>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         </div>
