@@ -129,14 +129,15 @@
 {% macro table_materia(materias) %}
 
     {% for materia in materias %}
+    {% set dict_materia = {"id":materia.id,"nombre":materia.nombre,"cantidad":materia.cantidad,"unidad":materia.unidad,"precio":materia.precio} %}
     <tr>
-        <td>{{materia.id_materia}}</td>
+        <td>{{materia.id}}</td>
         <td>{{materia.nombre}}</td>
         <td>{{materia.precio}}</td>
         <td>{{materia.cantidad}} {{materia.unidad}}</td>
         <td>
-            <a onclick="decidirMateria('{{materia}}')" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
-            <a onclick="eliminarMateria('{{materia.id_materia}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
+            <a onclick='mostrarModalMateriaModificar({{dict_materia|string}})' class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
+            <a onclick="confirmarMateria('{{materia.id}}','{{materia.nombre}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
         </td>
     </tr>
     {% endfor %}
@@ -258,11 +259,20 @@
         <input id="txtPrecio" name="txtPrecio" type="text" class="form-control form-element col-12" required>
     </div>
     <div class="form-group col-12 p-0 mb-2">
+        <label for="txtCantidad" class="form-control-label form-label">Cantidad</label>
+        <input id="txtCantidad" name="txtCantidad" type="number" class="form-control form-element col-12" disabled>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
         <label for="lstUnidad" class="form-control-label form-label">Unidad</label>
-        <select id="lstUnidad" name="lstUnidad" class="form-control form-element">
-
+        <select id="lstUnidad" name="lstUnidad" class="form-control form-element col-12" required>
+            <option value="dm">Decimetros</option>
+            <option value="kg">Kilogramos</option>
+            <option value="g">Gramos</option>
+            <option value="l">Litros</option>
+            <option value="pz">Piezas</option>
         </select>
     </div>
+    <input id="txtId" name="txtId" type="hidden">
 
 {% endmacro %}
 

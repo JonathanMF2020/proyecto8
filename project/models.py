@@ -21,7 +21,6 @@ class User(UserMixin, db.Model):
         secondary=users_roles,
         backref=db.backref('user',lazy='dynamic')                        
     )
-    
 
 class Role(RoleMixin, db.Model):
     __tablename__ = 'role'

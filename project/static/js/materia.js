@@ -1,0 +1,62 @@
+function mostrarModalMateriaAgregar(){
+    $("#modalMateria").modal("show");
+    $("#txtNombre").val("");
+    $("#txtPrecio").val("");
+    $("#txtCantidad").val(0.0);
+    $("#lstUnidad").val("dm");
+    $("#txtId").val("");
+    $("#modalMateriaLabel").html("Agregar Materia Prima");
+}
+
+function mostrarModalMateriaModificar(materia){
+    $("#modalMateria").modal("show");
+    $("#txtNombre").val(materia.nombre);
+    $("#txtPrecio").val(materia.precio);
+    $("#lstUnidad").val(materia.unidad);
+    $("#txtCantidad").val(materia.cantidad);
+    $("#txtId").val(materia.id);
+    $("#modalMateriaLabel").html("Modificar Materia Prima");
+}
+
+function confirmarMateria(id, nombre){
+    Swal.fire({
+        icon: 'question',
+        title: '¿Esta seguro que quiere eliminar la materia '+nombre+"?",
+        showDenyButton: true,
+        confirmButtonText: `Cancelar`,
+        denyButtonText: `Eliminar`,
+      }).then((result) => {
+        if (result.isDenied) {
+            eliminarMateria(id);
+        }
+      })
+}
+
+function eliminarMateria(id){
+    args = {
+        txtId: id
+    }
+    $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1:5000/materia/eliminar",
+            async: true,
+            data: args,
+            success: function (data) {
+                json_data = JSON.parse(data);
+                if(json_data.result=="OK"){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Materia prima eliminada',
+                        text: ''
+                    })
+                }
+                else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Algo salió mal...',
+                        text: 'Intentelo de nuevo más tarde'
+                    })
+                }
+            }
+    });
+}
