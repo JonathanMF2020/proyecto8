@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Ejemplo de Autenticación con Flask</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -46,5 +47,37 @@
         </div>
     </section>
 </body>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    function eliminarCliente(idr) {
+        Swal.fire({
+            title: '¿Estas seguro de querer eliminar?',
+            text: "Se eliminara este registro",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Aceptar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "{{url_for('main.cliente_delete')}}",
+                    data: {
+                        id: idr
+                    },
+                    success: function(datos) {
+                        $("#" + idr).remove();
+                        Swal.fire(
+                            'Exito',
+                            'Se ha eliminado el registro exitosamente',
+                            'success'
+                        );
+                    }
+                });
+            }
+        })
+    }
+</script>
 
 </html>

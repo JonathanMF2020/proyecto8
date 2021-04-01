@@ -1,0 +1,12 @@
+{% extends "base.html" %} {% block content %}
+<form action="{{url_for('main.cliente_edit')}}" method="post">
+    <input type="hidden" name="id" id="id" value="{{cliente.id}}">
+    <input type="text" name="nombre_empresa" id="nombre_empresa" placeholder="Ingresa el nombre de la empresa" value="{{cliente.nombre_empresa}}">
+    <input type="email" name="email" id="email" placeholder="Ingresa el correo electronico" value="{{cliente.email}}">
+    <input type="text" name="telefono" id="telefono" placeholder="Ingresa el telefono" value="{{cliente.telefono}}">
+    <input type="text" name="rfc" id="rfc" placeholder="Ingresa el RFC de la empresa" value="{{cliente.rfc}}"> 
+    <input type="text" name="direccion" id="direccion" placeholder="Ingresa la dirección" value="{{cliente.direccion}}">
+    <input type="text" name="contacto" id="contacto" placeholder="Ingresa el nombre del contacto" value="{{cliente.contacto}}">
+    <input type="submit" value="Editar">
+</form>
+{% endblock %}

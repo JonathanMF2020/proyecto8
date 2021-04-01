@@ -28,3 +28,15 @@ class Role(RoleMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(255))
+    
+
+class Cliente(db.Model):
+    __tablename__ = "cliente"
+    id = db.Column(db.Integer,primary_key=True)
+    nombre_empresa = db.Column(db.String(100))
+    email = db.Column(db.String(100))
+    telefono = db.Column(db.String(50))
+    rfc = db.Column(db.String(50))
+    direccion = db.Column(db.String(250))
+    contacto = db.Column(db.String(150))
+    estatus = db.Column(db.Integer)
