@@ -27,7 +27,7 @@ def create_app():
     app.register_blueprint(auth_blueprint)
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
-    from .base import base as base_blueprint
-    app.register_blueprint(base_blueprint)
+    from .materia import materias as materia_blueprint
+    app.register_blueprint(materia_blueprint)
     app.logger.debug("Inicio la aplicacion")
     return app

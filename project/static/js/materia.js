@@ -9,9 +9,10 @@ function mostrarModalMateriaAgregar(){
 }
 
 function mostrarModalMateriaModificar(materia){
+    console.log(materia);
     $("#modalMateria").modal("show");
     $("#txtNombre").val(materia.nombre);
-    $("#txtPrecio").val(materia.precio);
+    $("#txtCosto").val(materia.costo);
     $("#lstUnidad").val(materia.unidad);
     $("#txtCantidad").val(materia.cantidad);
     $("#txtId").val(materia.id);
@@ -38,7 +39,7 @@ function eliminarMateria(id){
     }
     $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:5000/materia/eliminar",
+            url: "http://127.0.0.1:5000/materias/eliminar",
             async: true,
             data: args,
             success: function (data) {
@@ -46,9 +47,14 @@ function eliminarMateria(id){
                 if(json_data.result=="OK"){
                     Swal.fire({
                         icon: 'success',
-                        title: 'Materia prima eliminada',
-                        text: ''
-                    })
+                        title: 'Materia prima eliminada correctamente',
+                        showDenyButton: false,
+                        confirmButtonText: `Ok`
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.replace("http://127.0.0.1:5000/materias/");
+                        }
+                      })
                 }
                 else{
                     Swal.fire({
