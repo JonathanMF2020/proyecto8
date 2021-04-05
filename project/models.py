@@ -47,3 +47,33 @@ class MateriaPrima(db.Model):
             "unidad": self.unidad,
         }
         return json.dumps(lis)
+
+class Producto(db.Model):
+    __tablename__ = "productos"
+    id = db.Column(db.Integer,primary_key=True)
+    nombre = db.Column(db.String(50))
+    descripcion = db.Column(db.String(200))
+    precio = db.Column(db.Float)
+    cantidad = db.Column(db.Float)
+    estatus = db.Column(db.Integer)
+
+    def toJson(self):
+        pro = {
+            "id": self.id,
+            "nombre": self.nombre,
+            "descripcion": self.descripcion,
+            "precio": self.precio,
+            "cantidad": self.cantidad,
+            "estatus": self.estatus,
+        }
+        return json.dumps(pro)
+
+class Ejemplar(db.model):
+    __tablename__ = "ejemplar"
+    id = db.Column(db.String, primary_key=True)
+    talla = db.Column(db.Integer)
+    color = db.Column(db.String(50))
+    producto_id = Column(Integer, ForeignKey('Producto.id'))
+    producto = relationship(
+                            Producto,
+                            backref=backref('Ejemplar', uselist=True))
