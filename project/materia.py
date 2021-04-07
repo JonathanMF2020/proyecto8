@@ -14,6 +14,14 @@ def getAll():
     materias = db.session.query(MateriaPrima).filter(MateriaPrima.estatus == 1).all()
     return render_template('materia.html', materias=materias)
 
+@materias.route('/getAll')
+def getJson():
+    materias = db.session.query(MateriaPrima).filter(MateriaPrima.estatus == 1).all()
+    list_materia = []
+    for m in materias:
+        list_materia.append(m.toJson())
+    return json.dumps(list_materia)
+
 #Agregar/Modificar
 @materias.route('/guardar', methods=["POST"])
 def guardar():

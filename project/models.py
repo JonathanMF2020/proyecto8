@@ -68,12 +68,20 @@ class Producto(db.Model):
         }
         return json.dumps(pro)
 
-class Ejemplar(db.model):
-    __tablename__ = "ejemplar"
-    id = db.Column(db.String, primary_key=True)
-    talla = db.Column(db.Integer)
-    color = db.Column(db.String(50))
-    producto_id = Column(Integer, ForeignKey('Producto.id'))
-    producto = relationship(
-                            Producto,
-                            backref=backref('Ejemplar', uselist=True))
+class DetalleProducto(db.Model):
+    __tablename__ = "detalle_producto"
+    id = db.Column(db.Integer,primary_key=True)
+    producto_id = db.Column(db.Integer(),db.ForeignKey('productos.id'))
+    producto = db.relationship(Producto,backref="detalle_productos")
+    materia_id = db.Column(db.Integer(),db.ForeignKey('materia_prima.id'))
+    materia = db.relationship(MateriaPrima,backref="detalle_productos")
+    cantidad = db.Column(db.Float)
+
+    def toJson(self):
+        prode = {
+            "id": self.id,
+            "producto_id": self.producto_id,
+            "materia_id": self.materia_id,
+            "cantidad": self.cantidad
+        }
+        return json.dumps(prode)
