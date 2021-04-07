@@ -67,3 +67,21 @@ class Producto(db.Model):
             "estatus": self.estatus,
         }
         return json.dumps(pro)
+
+class DetalleProducto(db.Model):
+    __tablename__ = "detalle_producto"
+    id = db.Column(db.Integer,primary_key=True)
+    producto_id = db.Column(db.Integer(),db.ForeignKey('productos.id'))
+    producto = db.relationship(Producto,backref="detalle_productos")
+    materia_id = db.Column(db.Integer(),db.ForeignKey('materia_prima.id'))
+    materia = db.relationship(MateriaPrima,backref="detalle_productos")
+    cantidad = db.Column(db.Float)
+
+    def toJson(self):
+        prode = {
+            "id": self.id,
+            "producto_id": self.producto_id,
+            "materia_id": self.materia_id,
+            "cantidad": self.cantidad
+        }
+        return json.dumps(prode)
