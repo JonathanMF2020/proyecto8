@@ -50,15 +50,10 @@ class MateriaPrima(db.Model):
         }
         return json.dumps(lis)
 
-class DetalleCompra(db.Model):
-    __tablename__ = "detalle_compra"
+class Proveedor(db.Model):
+    __tablename__ = "proveedor"
     id = db.Column(db.Integer,primary_key=True)
-    materia_id = db.Column(db.Integer,db.ForeignKey('materia_prima.id'))
-    compra_id = db.Column(db.Integer,db.ForeignKey('compra.id'))
-    cantidad = db.Column(db.Float)
-    precio_unitario = db.Column(db.Float)
-    materia = db.relationship(MateriaPrima,backref="materia_prima")
-    compra = db.relationship(Compra,backref="compra")
+    nombre = db.Column(db.String(50))
 
 class Compra(db.Model):
     __tablename__ = "compra"
@@ -71,16 +66,21 @@ class Compra(db.Model):
     proveedor = db.relationship(Proveedor,backref="proveedor")
 
 
-class Proveedor(db.Model):
-    __tablename__ = "proveedor"
+
+
+class DetalleCompra(db.Model):
+    __tablename__ = "detalle_compra"
     id = db.Column(db.Integer,primary_key=True)
-    nombre = db.Column(db.String(100))
-    email = db.Column(db.String(100), nullable=False, unique=True)
-    telefono = db.Column(db.String(25))
-    direccion = db.Column(db.String(250))
-    contacto = db.Column(db.String(250))
-    RFC = db.Column(db.String(125))
-    estatus = db.Column(db.Integer, default=1)
+    materia_id = db.Column(db.Integer,db.ForeignKey('materia_prima.id'))
+    compra_id = db.Column(db.Integer,db.ForeignKey('compra.id'))
+    cantidad = db.Column(db.Float)
+    precio_unitario = db.Column(db.Float)
+    materia = db.relationship(MateriaPrima,backref="materia_prima")
+    compra = db.relationship(Compra,backref="compra")
+
+
+
+
 
 
 
