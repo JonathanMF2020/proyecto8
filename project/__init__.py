@@ -29,5 +29,7 @@ def create_app():
     app.register_blueprint(main_blueprint)
     from .materia import materias as materia_blueprint
     app.register_blueprint(materia_blueprint)
+    from .compra import compras as compras_blueprint
+    app.register_blueprint(compras_blueprint)
     app.logger.debug("Inicio la aplicacion")
     return app
