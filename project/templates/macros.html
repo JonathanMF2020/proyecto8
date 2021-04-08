@@ -118,7 +118,7 @@
         <td>{{producto.cantidad}}</td>
         <td>
             <a onclick="modificarProducto({{producto.toJson() | string}})" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
-            <a onclick="eliminarProducto('{{producto.id}}','{{producto.nombre}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
+            <a onclick="confirmarProducto('{{producto.id}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
         </td>
     </tr>
     {% endfor %}
@@ -249,6 +249,7 @@
         <label for="txtDescripcion" class="form-control-label form-label">Descripción</label>
         <textarea class="form-control form-element col-12" id="txtDescripcion" name="txtDescripcion" rows="3" required></textarea>
     </div>
+    <input id="txtId" name="txtId" type="hidden">
 {% endmacro %}
 
 {% macro form_materia() %}
