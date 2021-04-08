@@ -1,6 +1,7 @@
 from . import db
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import UserMixin,RoleMixin
+import json
 
 users_roles = db.Table('users_roles',
     db.Column('userId',db.Integer,db.ForeignKey('user.id'))  ,
@@ -21,7 +22,6 @@ class User(UserMixin, db.Model):
         secondary=users_roles,
         backref=db.backref('user',lazy='dynamic')                        
     )
-    
 
 class Role(RoleMixin, db.Model):
     __tablename__ = 'role'
@@ -40,3 +40,23 @@ class Proveedor(db.Model):
     RFC = db.Column(db.String(125))
     estatus = db.Column(db.Integer, default=1)
     
+
+class MateriaPrima(db.Model):
+    __tablename__ = "materia_prima"
+    id = db.Column(db.Integer,primary_key=True)
+    nombre = db.Column(db.String(50))
+    costo  = db.Column(db.Float)
+    cantidad = db.Column(db.Float)
+    unidad = db.Column(db.String(50))
+    estatus = db.Column(db.Integer)
+
+    def toJson(self):
+        lis = {
+            "id": self.id,
+            "nombre": self.nombre,
+            "costo": self.costo,
+            "cantidad": self.cantidad,
+            "unidad": self.unidad,
+        }
+        return json.dumps(lis)
+
