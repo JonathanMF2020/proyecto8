@@ -98,7 +98,7 @@ function insertarProducto(){
         "txtNombre" : producto.nombre,
         "txtDescripcion" : producto.descripcion,
         "txtPrecio" : producto.precio,
-        "detalles" : producto.detalles
+        "detalles" : JSON.stringify(producto.detalles)
     }
     $.ajax({
             type: "POST",
