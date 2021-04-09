@@ -51,14 +51,20 @@ class MateriaPrima(db.Model):
         return json.dumps(lis)
 
 class Proveedor(db.Model):
-    __tablename__ = "proveedor"
-    id = db.Column(db.Integer,primary_key=True)
-    nombre = db.Column(db.String(50))
+    __tablename__ = "proveedor"    
+    id_proveedor = db.Column(db.Integer, primary_key=True)
+    nombre_empresa = db.Column(db.String(100))
+    email = db.Column(db.String(100), nullable=False, unique=True)
+    telefono = db.Column(db.String(25))
+    direccion = db.Column(db.String(250))
+    contacto = db.Column(db.String(250))
+    RFC = db.Column(db.String(125))
+    estatus = db.Column(db.Integer, default=1)
 
 class Compra(db.Model):
     __tablename__ = "compra"
     id = db.Column(db.Integer,primary_key=True)
-    proveedor_id = db.Column(db.Integer,db.ForeignKey('proveedor.id'))
+    proveedor_id = db.Column(db.Integer,db.ForeignKey('proveedor.id_proveedor'))
     precio = db.Column(db.Float)
     fecha_compra = db.Column(db.DateTime,default=datetime.date.today())
     comentarios = db.Column(db.String(50))
