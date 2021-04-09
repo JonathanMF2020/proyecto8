@@ -1,5 +1,6 @@
 from . import db
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import relationship
 from flask_security import UserMixin,RoleMixin
 import json
 
@@ -56,6 +57,7 @@ class Producto(db.Model):
     precio = db.Column(db.Float)
     cantidad = db.Column(db.Float)
     estatus = db.Column(db.Integer)
+    detalles = relationship('MateriaPrima', secondary='detalle_producto')
 
     def toJson(self):
         pro = {

@@ -29,7 +29,8 @@
             {{render_form("productos")}}
         </div>
         <div class="modal-footer">
-          <button onclick="siguienteProductos()" class="btn btn-success">Siguiente</button>
+          <button id="btnSiguiente1" onclick="siguienteProductos()" class="btn btn-success">Siguiente</button>
+          <button id="btnSiguiente2" onclick="editarProducto()" class="btn btn-success">Siguiente</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         </div>
       </div>
@@ -57,7 +58,8 @@
                 <input id="txtCantidadM" name="txtCantidadM" type="textarea" class="form-control form-element col-12" required>
             </div>
             <div class="form-group col-12 p-0">
-                <button onclick="agregarMateriaP()" class="btn btn-outline-primary col-12">Agregar</button>
+                <button id="btnAgregarMateriaP" onclick="agregarMateriaP()" class="btn btn-outline-primary col-12">Agregar</button>
+                <button id="btnAgregarMateriaP2" onclick="agregarMateriaP2()" class="btn btn-outline-primary col-12">Agregar</button>
             </div>
           </div>
           <div class="table-resposive col-12">
@@ -66,6 +68,7 @@
                       <tr>
                           <th>Materia Prima</th>
                           <th>Cantidad</th>
+                          <th></th>
                       </tr>
                   </thead>
                   <tbody id="tblDetalleProducto" class="text-black">
@@ -75,7 +78,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button onclick="guardarProducto()" class="btn btn-success">Guardar</button>
+          <button id="btnGuardarProducto" onclick="guardarProducto()" class="btn btn-success">Guardar</button>
+          <button id="btnGuardarProducto2" onclick="guardarProducto2()" class="btn btn-success">Guardar</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         </div>
       </div>
