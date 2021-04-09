@@ -15,7 +15,13 @@ def getAll():
 def guardar():
     #obtener los datos
     if request.form.get("txtId") != "":
-        return 1
+        compra = db.session.query(Compra).filter(Compra.id == request.form.get("txtId")).first
+        compra.precio = request.form.get("txtPrecio")
+        compra.comentarios = request.form.get("txtComentario")
+        compra.proveedor = request.form.get("slctProveedor")
+        db.session.add(compra)
+        db.session.commit()        
+        flash("Compra modificada exitosamente", "success") 
     else:
         precio = request.form.get("txtPrecio")
         comentario = request.form.get("txtComentario")
