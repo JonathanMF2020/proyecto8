@@ -8,7 +8,7 @@
     <div class="row col-10 justify-content-center p-0 m-0">
         <h3 class="h3 col-12 text-center mb-3 text-black">Proveedores</h3>
         <div class="row col-12 justify-content-center mb-3">
-            <a onclick="decidirProveedores(NaN)" class="btn-small btn-rose btn mr-2 text-white"><i class="fas fa-plus mr-2"></i>Agregar</a>
+            <a onclick="mostrarModalProveedorAgregar(NaN)" class="btn-small btn-rose btn mr-2 text-white"><i class="fas fa-plus mr-2"></i>Agregar</a>
             <input id="txtBusqueda" name="txtBusqueda" type="text" class="form-control search col-8" placeholder="Buscar Proveedores">
             <button href="#" class="btn-small btn btn-search"><i class="fas fa-search"></i></button>
         </div>
@@ -16,7 +16,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalProvedores" tabindex="-1" role="dialog" aria-labelledby="modalProvedoresLabel" aria-hidden="true">
+<div class="modal fade" id="modalProveedor" tabindex="-1" role="dialog" aria-labelledby="modalProveedoresLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -26,7 +26,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <form method="POST" action="/prveedores/guardar" class="form form-inline col-12">
+            <form method="POST" action="/proveedores/guardar" class="form form-inline col-12">
                 {{render_form("proveedores")}}
         </div>
         <div class="modal-footer">
@@ -37,4 +37,17 @@
       </div>
     </div>
   </div>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <script>
+          Swal.fire({
+            icon: '{{category}}',
+            title: '{{message}}',
+            text: ''
+          })
+        </script>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
 {% endblock %}

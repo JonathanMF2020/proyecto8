@@ -8,6 +8,8 @@ function mostrarModalMateriaAgregar(){
     $("#modalMateriaLabel").html("Agregar Materia Prima");
 }
 
+
+
 function mostrarModalMateriaModificar(materia){
     console.log(materia);
     $("#modalMateria").modal("show");

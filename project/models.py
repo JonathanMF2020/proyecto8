@@ -1,6 +1,7 @@
 from . import db
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import UserMixin,RoleMixin
+import datetime
 import json
 
 users_roles = db.Table('users_roles',
@@ -28,9 +29,11 @@ class Role(RoleMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(255))
+    
 
 
 class Proveedor(db.Model):
+    __tablename__ = "proveedor"
     id_proveedor = db.Column(db.Integer, primary_key=True)
     nombre_empresa = db.Column(db.String(100))
     email = db.Column(db.String(100), nullable=False, unique=True)
@@ -39,6 +42,19 @@ class Proveedor(db.Model):
     contacto = db.Column(db.String(250))
     RFC = db.Column(db.String(125))
     estatus = db.Column(db.Integer, default=1)
+    
+    def toJson(self):
+        lis = {
+            "id_proveedor": self.id_proveedor,
+            "nombre_empresa": self.nombre_empresa,
+            "email": self.email,
+            "telefono": self.telefono,
+            "direccion": self.direccion,
+            "contacto": self.contacto,
+            "RFC": self.RFC,
+            "estatus": self.estatus
+        }
+        return json.dumps(lis)
     
 
 class MateriaPrima(db.Model):
@@ -59,4 +75,38 @@ class MateriaPrima(db.Model):
             "unidad": self.unidad,
         }
         return json.dumps(lis)
+
+
+
+class Compra(db.Model):
+    __tablename__ = "compra"
+    id = db.Column(db.Integer,primary_key=True)
+    proveedor_id = db.Column(db.Integer,db.ForeignKey('proveedor.id_proveedor'))
+    precio = db.Column(db.Float)
+    fecha_compra = db.Column(db.DateTime,default=datetime.date.today())
+    comentarios = db.Column(db.String(50))
+    estatus = db.Column(db.Integer)
+    proveedor = db.relationship(Proveedor,backref="proveedor")
+
+
+
+
+class DetalleCompra(db.Model):
+    __tablename__ = "detalle_compra"
+    id = db.Column(db.Integer,primary_key=True)
+    materia_id = db.Column(db.Integer,db.ForeignKey('materia_prima.id'))
+    compra_id = db.Column(db.Integer,db.ForeignKey('compra.id'))
+    cantidad = db.Column(db.Float)
+    precio_unitario = db.Column(db.Float)
+    materia = db.relationship(MateriaPrima,backref="materia_prima")
+    compra = db.relationship(Compra,backref="compra")
+
+
+
+
+
+
+
+    
+
 

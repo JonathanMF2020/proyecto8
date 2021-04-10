@@ -6,28 +6,28 @@
 {% block content %}
 <div class="row col-12 justify-content-center p-0 m-0">
     <div class="row col-10 justify-content-center p-0 m-0">
-        <h3 class="h3 col-12 text-center mb-3 text-black">Materia Prima</h3>
+        <h3 class="h3 col-12 text-center mb-3 text-black">Compras</h3>
         <div class="row col-12 justify-content-center mb-3">
-            <a onclick="mostrarModalMateriaAgregar()" class="btn-small btn-rose btn mr-2 text-white"><i class="fas fa-plus mr-2"></i>Agregar</a>
-            <input id="txtBusqueda" name="txtBusqueda" type="text" class="form-control search col-8" placeholder="Buscar Materia Prima">
+            <a onclick="mostrarModalCompraAgregar()" class="btn-small btn-rose btn mr-2 text-white"><i class="fas fa-plus mr-2"></i>Agregar</a>
+            <input id="txtBusqueda" name="txtBusqueda" type="text" class="form-control search col-8" placeholder="Buscar Compra">
             <button href="#" class="btn-small btn btn-search"><i class="fas fa-search"></i></button>
         </div>
-        {{render_table(materias, "materia")}}
+        {{render_table(compras, "compras")}}
     </div>
 </div>
 
-<div class="modal fade" id="modalMateria" tabindex="-1" role="dialog" aria-labelledby="modalMateriaLabel" aria-hidden="true">
+<div class="modal fade" id="modalCompra" tabindex="-1" role="dialog" aria-labelledby="modalMateriaLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="modalMateriaLabel"></h5>
+          <h5 class="modal-title" id="modalCompraLabel"></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-            <form method="POST" action="/materias/guardar" class="form form-inline col-12">
-              {{render_form("materia")}}
+            <form method="POST" action="/compras/guardar" class="form form-inline col-12">
+              {{render_form("compras",proveedores)}}
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-success">Guardar</button>
@@ -38,17 +38,17 @@
     </div>
   </div>
 
-  {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-      {% for category, message in messages %}
-        <script>
-          Swal.fire({
-            icon: '{{category}}',
-            title: '{{message}}',
-            text: ''
-          })
-        </script>
-      {% endfor %}
-    {% endif %}
-  {% endwith %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <script>
+        Swal.fire({
+          icon: '{{category}}',
+          title: '{{message}}',
+          text: ''
+        })
+      </script>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
 {% endblock %}

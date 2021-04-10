@@ -52,6 +52,16 @@
     <th>Costo</th>
     <th>Fecha</th>
     <th>Comentarios</th>
+    <th>Estado</th>
+    <th>Acciones</th>
+
+{% endmacro %}
+
+{% macro header_detalles_compras() %}
+
+    <th>Cantidad</th>
+    <th>Subtotal</th>
+    <th>Producto</th>
     <th>Acciones</th>
 
 {% endmacro %}
@@ -94,13 +104,13 @@
         <td>{{proveedor.id_proveedor}}</td>
         <td>{{proveedor.nombre_empresa}}</td>
         <td>{{proveedor.contacto}}</td>
-        <td>{{proveedor.eamil}}</td>
+        <td>{{proveedor.email}}</td>
         <td>{{proveedor.telefono}}</td>
         <td>{{proveedor.direccion}}</td>
-        <td>{{proveedor.rfc}}</td>
+        <td>{{proveedor.RFC}}</td>
         <td>
-            <a onclick="decidirProveedor('{{proveedor}}')" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
-            <a onclick="eliminarProveedor('{{proveedor.id_proveedor}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
+            <a onclick='mostrarModalProveedorModificar({{proveedor.toJson()|string}})' class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
+            <a onclick="confirmarProveedor('{{proveedor.id_proveedor}}', '{{proveedor.nombre_empresa}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
         </td>
     </tr>
     {% endfor %}
@@ -147,14 +157,31 @@
 
     {% for compra in compras %}
     <tr>
-        <td>{{compra.id_compra}}</td>
-        <td>{{compra.proveedor}}</td>
+        <td>{{compra.id}}</td>
+        <td>{{compra.proveedor.nombre}}</td>
         <td>{{compra.precio}}</td>
-        <td>{{compra.fecha}}</td>
+        <td>{{compra.fecha_compra}}</td>
         <td>{{compra.comentarios}}</td>
+        <td>{{compra.estatus}}</td>
         <td>
-            <a onclick="detalleCompra('{{compra}}')" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-eye"></i></a>
+            <a href="/compras/ver?id={{compra.id}}" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-eye"></i></a>
             <a onclick="eliminarCompra('{{compra.id_compra}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
+        </td>
+    </tr>
+    {% endfor %}
+
+{% endmacro %}
+
+{% macro table_compras_detalle(detalles) %}
+
+    {% for detalle in detalles %}
+    <tr>
+        <td>{{detalle.id}}</td>
+        <td>{{detalle.precio_unitario}}</td>
+        <td>{{detalle.materia.nombre}}</td>
+        <td>
+            <a href="" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
+            <a onclick="" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
         </td>
     </tr>
     {% endfor %}
@@ -177,6 +204,51 @@
     </tr>
     {% endfor %}
 
+{% endmacro %}
+
+{% macro form_compras(proveedores) %}
+    <input id="txtId" name="txtId" type="hidden">
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtPrecio" class="form-control-label form-label">Precio</label>
+        <input id="txtPrecio" name="txtPrecio" type="text" class="form-control form-element col-12" required>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtComentario" class="form-control-label form-label">Comentario</label>
+        <input id="txtComentario" name="txtComentario" type="text" class="form-control form-element col-12" required>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="slctProveedor" class="form-control-label form-label">Proveedor</label>
+        <select name="slctProveedor" id="slctProveedor" class="form-control form-element col-12">
+            {% for proveedor in proveedores %}
+            <option value="{{proveedor}}">{{proveedor.nombre_empresa}}</option>
+            {% endfor %}
+        </select>
+
+    </div>
+    
+{% endmacro %}
+
+{% macro form_compras_detalles(materias,id) %}
+    <input id="txtId" name="txtId" type="hidden" value="{{id}}">
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="slctMateria" class="form-control-label form-label">Materias</label>
+        <select name="slctMateria" id="slctMateria" class="form-control form-element col-12">
+            {% for materia in materias %}
+            <option value="{{materia.id}}">{{materia.nombre}}</option>
+            {% endfor %}
+        </select>
+
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtCantidad" class="form-control-label form-label">Cantidad</label>
+        <input id="txtCantidad" name="txtCantidad" type="text" class="form-control form-element col-12" required>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtPrecio" class="form-control-label form-label">Precio unitario</label>
+        <input id="txtPrecio" name="txtPrecio" type="text" class="form-control form-element col-12" required>
+    </div>
+    
+    
 {% endmacro %}
 
 {% macro form_clientes() %}
@@ -217,7 +289,7 @@
     </div>
     <div class="form-group col-12 p-0 mb-2">
         <label for="txtTelefono" class="form-control-label form-label">Telefono</label>
-        <input id="txtTelefono" name="txtTelefono" type="text" class="form-control form-element col-12" required>
+        <input id="txtTelefono" name="txtTelefono" type="tel" pattern="[0-9]{1,10}" title="Ingrese número telefonico de 10 digitos" class="form-control form-element col-12" required>
     </div>
     <div class="form-group col-12 p-0 mb-2">
         <label for="txtDireccion" class="form-control-label form-label">Dirección</label>
@@ -229,8 +301,9 @@
     </div>
     <div class="form-group col-12 p-0 mb-2">
         <label for="txtRFC" class="form-control-label form-label">RFC</label>
-        <input id="txtRFC" name="txtRFC" type="text" class="form-control form-element col-12" required>
+        <input id="txtRFC" name="txtRFC" type="text" pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A]|[0-9]){1})?$" title="Ingrese RFC valido. Ejemplo: XXXX000000X00" class="form-control form-element col-12" required>
     </div>
+    <input id="txtId" name="txtId" type="hidden">
 {% endmacro %}
 
 {% macro form_productos() %}
@@ -290,6 +363,8 @@
                     {{header_materia()}}
                 {% elif type=="compras" %}
                     {{header_compras()}}
+                {% elif type=="compras_detalles" %}
+                    {{header_detalles_compras()}}
                 {% elif type=="ventas" %}
                     {{header_ventas()}}
                 {% endif %}
@@ -306,6 +381,8 @@
                 {{table_materia(objects)}}
             {% elif type=="compras" %}
                 {{table_compras(objects)}}
+            {% elif type=="compras_detalles" %}
+                {{table_compras_detalle(objects)}}
             {% elif type=="ventas" %}
                 {{table_ventas(objects)}}
             {% endif %}
@@ -314,7 +391,7 @@
 </div>
 {% endmacro %}
 
-{% macro render_form(type) %}
+{% macro render_form(type,proveedor = null,materias = null,ida = null) %}
     {% if type=="clientes" %}
         {{form_clientes()}}
     {% elif type=="proveedores" %}
@@ -324,7 +401,9 @@
     {% elif type=="materia" %}
         {{form_materia()}}
     {% elif type=="compras" %}
-        {{form_compras()}}
+        {{form_compras(proveedor)}}
+    {% elif type=="compras_detalles" %}
+        {{form_compras_detalles(materias,ida)}}
     {% elif type=="ventas" %}
         {{form_ventas()}}
     {% endif %}
