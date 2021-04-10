@@ -30,6 +30,24 @@ class Role(RoleMixin, db.Model):
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(255))
     
+class MateriaPrima(db.Model):
+    __tablename__ = "materia_prima"
+    id = db.Column(db.Integer,primary_key=True)
+    nombre = db.Column(db.String(50))
+    costo  = db.Column(db.Float)
+    cantidad = db.Column(db.Float)
+    unidad = db.Column(db.String(50))
+    estatus = db.Column(db.Integer)
+
+    def toJson(self):
+        lis = {
+            "id": self.id,
+            "nombre": self.nombre,
+            "costo": self.costo,
+            "cantidad": self.cantidad,
+            "unidad": self.unidad,
+        }
+        return json.dumps(lis)
 
 class Cliente(db.Model):
     __tablename__ = "cliente"

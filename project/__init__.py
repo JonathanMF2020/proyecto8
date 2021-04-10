@@ -27,8 +27,8 @@ def create_app():
     app.register_blueprint(auth_blueprint)
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
-    from .materia import materias as materia_blueprint
-    app.register_blueprint(materia_blueprint)
+    from .materia import materias as materias_blueprint
+    app.register_blueprint(materias_blueprint)
     from .compra import compras as compras_blueprint
     app.register_blueprint(compras_blueprint)
     from .cliente import cliente as cliente_blueprint
