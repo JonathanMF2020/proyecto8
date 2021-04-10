@@ -89,7 +89,6 @@ function agregarMateriaP(){
         "cantidad" : cantidad
     }
     detalles.push(detalle);
-    producto.detalles.push(detalle)
     actualizarDetalleProducto(0);
 }
 
@@ -146,7 +145,7 @@ function insertarProducto(){
         "txtNombre" : producto.nombre,
         "txtDescripcion" : producto.descripcion,
         "txtPrecio" : producto.precio,
-        "detalles" : JSON.stringify(producto.detalles)
+        "detalles" : JSON.stringify(detalles)
     }
     $.ajax({
             type: "POST",
