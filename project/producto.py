@@ -2,11 +2,7 @@ from flask import Blueprint, render_template, request, redirect,url_for, make_re
 from flask_security import login_required, current_user
 from flask_security.decorators import roles_required
 from . import db
-<<<<<<< HEAD
 from .models import Producto, DetalleProducto, MateriaPrima
-=======
-from .models import Producto, DetalleProducto
->>>>>>> bad844a1bfab393be3fd633d3af3b2b136b6f0b2
 import json
 
 #nombre del blueprint (abreviado), el prefijo debe ser el nombre del modulo
@@ -34,17 +30,8 @@ def getDetalles():
 
 @productos.route('/guardar', methods=["POST"])
 def guardar():
-<<<<<<< HEAD
-=======
     idt = request.form.get("txtId")
-    detalles = json.loads(request.form.get("detalles"))
-    print(detalles)
-    print(idt)
->>>>>>> bad844a1bfab393be3fd633d3af3b2b136b6f0b2
-    if request.form.get("txtId") != "":
-        data = request.detalles
-        print(data)
-        print(type(data))
+    if idt != "":
         idP = request.form.get("txtId")
         nombre = request.form.get("txtNombre")
         descripcion = request.form.get("txtDescripcion")
@@ -61,33 +48,9 @@ def guardar():
         nombre = request.form.get("txtNombre")
         descripcion = request.form.get("txtDescripcion")
         precio = request.form.get("txtPrecio")
-        detalles = json.loads(request.form.get("detalles"))
         producto = Producto(nombre=nombre,descripcion=descripcion,precio=precio,cantidad=0,estatus=1)
-        print(type(detalles))
-        pro = db.session.query(Producto).order_by(Producto.id.desc()).first()
-        idPro = pro.id
-        for r in detalles :
-            print(r)
-            materias = detalles[0]
-            print(materias)
-            print(type(materias))
-            matee = materias['materia']
-            print(matee)
-            print(type(matee))
-            idM = matee['id']
-            print("idMaterial"+str(idM))
-            print("idProducto"+str(idPro))
-            cantidad = materias['cantidad']
-            print("Cantidad"+cantidad)
-            productito = DetalleProducto(
-                cantidad = float(cantidad),
-                materia_id = int(idM),
-                producto_id = idPro
-            )
-            db.session.add(productito)
-            db.session.commit()
-
         db.session.add(producto)
+        detalles = json.loads(request.form.get("detalles"))
         pro = db.session.query(Producto).order_by(Producto.id.desc()).first()
         idPro = pro.id
         for r in detalles :
@@ -123,11 +86,7 @@ def eliminar():
 def eliminar_detalle():
     id = int(request.form.get("txtId"))
     detallespro = db.session.query(DetalleProducto).filter(DetalleProducto.id == id).first()
-<<<<<<< HEAD
     db.session.delete(detallespro)
-=======
-    db.session.add(detallespro)
->>>>>>> bad844a1bfab393be3fd633d3af3b2b136b6f0b2
     db.session.commit()
     response = {"result":"OK"}
     return json.dumps(response)
@@ -145,9 +104,6 @@ def agregar_detalle():
             )
     db.session.add(productito)
     db.session.commit()
-<<<<<<< HEAD
     response = {"result":productito.id}
-=======
-    response = {"result":"OK"}
->>>>>>> bad844a1bfab393be3fd633d3af3b2b136b6f0b2
+
     return json.dumps(response)

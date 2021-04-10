@@ -88,12 +88,12 @@ class DetalleProducto(db.Model):
             "cantidad": self.cantidad
         }
         return json.dumps(prode)
-
+"""
 class Venta(db.Model):
     __tablename__ = "venta"
     id = db.Column(db.Integer,primary_key=True)
     cliente_id = db.Column(db.Integer(),db.ForeignKey('cliente.id'))
-    cliente = db.relationship(MateriaPrima,backref="ventas")
+    cliente = db.relationship(MateriaPrima,backref="clientess")
     precio = db.Column(db.Float)
     date = db.Column(db.DateTime)
     comentarios = db.Column(db.String(200))
@@ -156,3 +156,4 @@ class Ejemplar(db.Model):
             "precio_unitario": self.precio_unitario
         }
         return json.dumps(detalleVenta)
+        """

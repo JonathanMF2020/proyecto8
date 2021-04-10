@@ -89,6 +89,7 @@ function agregarMateriaP(){
         "cantidad" : cantidad
     }
     detalles.push(detalle);
+    producto.detalles.push(detalle)
     actualizarDetalleProducto(0);
 }
 
@@ -176,7 +177,6 @@ function insertarProducto(){
             }
     });
 }
-<<<<<<< HEAD
 
 function editarProducto(){
     var nombre = $("#txtNombre").val();
@@ -209,19 +209,8 @@ function editarProducto(){
     });
 }
 
-function eliminarProducto(id, nombre){
-    Swal.fire({
-        icon: 'question',
-        title: '¿Esta seguro que quiere eliminar el producto '+nombre,
-        showDenyButton: true,
-        confirmButtonText: `Cancelar`,
-        denyButtonText: `Eliminar`
-      }).then((result) => {
-        if (result.isDenied) {
-            borrarProducto(id);
-=======
+
 function confirmarProducto(id){
-    alert(id)
     Swal.fire({
         icon: 'question',
         title: '¿Esta seguro que quiere eliminar el producto ?',
@@ -231,40 +220,25 @@ function confirmarProducto(id){
       }).then((result) => {
         if (result.isDenied) {
             eliminarProducto(id);
->>>>>>> bad844a1bfab393be3fd633d3af3b2b136b6f0b2
         }
       })
 }
 
-<<<<<<< HEAD
-function borrarProducto(id){
-    data={
-        "txtId" : id
-=======
 function eliminarProducto(id){
-    args = {
+    data = {
         txtId: id
->>>>>>> bad844a1bfab393be3fd633d3af3b2b136b6f0b2
     }
     $.ajax({
             type: "POST",
             url: "http://127.0.0.1:5000/productos/eliminar",
             async: true,
-<<<<<<< HEAD
             data:data,
-=======
-            data: args,
->>>>>>> bad844a1bfab393be3fd633d3af3b2b136b6f0b2
             success: function (data) {
                 json_data = JSON.parse(data);
                 if(json_data.result=="OK"){
                     Swal.fire({
                         icon: 'success',
-<<<<<<< HEAD
                         title: 'Producto eliminado correctamente',
-=======
-                        title: 'El producto se eliminó',
->>>>>>> bad844a1bfab393be3fd633d3af3b2b136b6f0b2
                         showDenyButton: false,
                         confirmButtonText: `Ok`
                       }).then((result) => {
@@ -282,7 +256,6 @@ function eliminarProducto(id){
                 }
             }
     });
-<<<<<<< HEAD
 }
 
 function eliminarMateriaP(pos){
@@ -345,6 +318,4 @@ function eliminarMateriaP2(pos){
                 actualizarDetalleProducto(1);
             }
     });
-=======
->>>>>>> bad844a1bfab393be3fd633d3af3b2b136b6f0b2
 }
