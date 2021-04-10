@@ -1,11 +1,13 @@
-function mostrarModalMateriaAgregar(){
-    $("#modalMateria").modal("show");
-    $("#txtNombre").val("");
-    $("#txtPrecio").val("");
-    $("#txtCantidad").val(0.0);
-    $("#lstUnidad").val("dm");
+function mostrarModalClienteAgregar(){
+    $("#modalClientes").modal("show");
+    $("#txtNombreEmpresa").val("");
+    $("#txtEmail").val("");
+    $("#txtTelefono").val("");
+    $("#txtDireccion").val("");
+    $("#txtContacto").val("");
+    $("#txtRFC").val("");
     $("#txtId").val("");
-    $("#modalMateriaLabel").html("Agregar Materia Prima");
+    $("#modalClientesLabel").html("Agregar Cliente");
 }
 
 
@@ -21,27 +23,40 @@ function mostrarModalMateriaModificar(materia){
     $("#modalMateriaLabel").html("Modificar Materia Prima");
 }
 
-function confirmarMateria(id, nombre){
+function mostrarModalClienteModificar(cliente){
+    console.log(cliente);
+    $("#modalClientes").modal("show");
+    $("#txtNombreEmpresa").val(cliente.nombre_empresa);
+    $("#txtEmail").val(cliente.email);
+    $("#txtTelefono").val(cliente.telefono);
+    $("#txtDireccion").val(cliente.direccion);
+    $("#txtContacto").val(cliente.contacto);
+    $("#txtRFC").val(cliente.rfc);
+    $("#txtId").val(cliente.id);
+    $("#modalClientesLabel").html("Modificar Cliente");
+}
+
+function confirmarCliente(id, nombre_empresa){
     Swal.fire({
         icon: 'question',
-        title: '¿Esta seguro que quiere eliminar la materia '+nombre+"?",
+        title: '¿Esta seguro que quiere eliminar el cliente '+nombre_empresa+'?',
         showDenyButton: true,
         confirmButtonText: `Cancelar`,
         denyButtonText: `Eliminar`,
       }).then((result) => {
         if (result.isDenied) {
-            eliminarMateria(id);
+            eliminarCliente(id);
         }
       })
 }
 
-function eliminarMateria(id){
+function eliminarCliente(id){
     args = {
         txtId: id
     }
     $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:5000/materias/eliminar",
+            url: "http://127.0.0.1:5000/clientes/eliminar",
             async: true,
             data: args,
             success: function (data) {
@@ -49,12 +64,12 @@ function eliminarMateria(id){
                 if(json_data.result=="OK"){
                     Swal.fire({
                         icon: 'success',
-                        title: 'Materia prima eliminada correctamente',
+                        title: 'Cliente eliminado correctamente',
                         showDenyButton: false,
                         confirmButtonText: `Ok`
                       }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.replace("http://127.0.0.1:5000/materias/");
+                            window.location.replace("http://127.0.0.1:5000/clientes/");
                         }
                       })
                 }

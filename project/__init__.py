@@ -31,5 +31,7 @@ def create_app():
     app.register_blueprint(materia_blueprint)
     from .compra import compras as compras_blueprint
     app.register_blueprint(compras_blueprint)
+    from .cliente import cliente as cliente_blueprint
+    app.register_blueprint(cliente_blueprint)
     app.logger.debug("Inicio la aplicacion")
     return app

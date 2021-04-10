@@ -81,16 +81,16 @@
 
     {% for cliente in clientes %}
     <tr>
-        <td>{{cliente.id_cliente}}</td>
+        <td>{{cliente.id}}</td>
         <td>{{cliente.nombre_empresa}}</td>
         <td>{{cliente.contacto}}</td>
-        <td>{{cliente.eamil}}</td>
+        <td>{{cliente.email}}</td>
         <td>{{cliente.telefono}}</td>
         <td>{{cliente.direccion}}</td>
         <td>{{cliente.rfc}}</td>
         <td>
-            <a onclick="decidirCliente('{{cliente}}')" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
-            <a onclick="eliminarCliente('{{cliente.id}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
+            <a onclick='mostrarModalClienteModificar({{cliente.toJson()|string}})' class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
+            <a onclick="confirmarCliente('{{cliente.id}}','{{cliente.nombre_empresa}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
         </td>
     </tr>
     {% endfor %}
@@ -262,7 +262,7 @@
     </div>
     <div class="form-group col-12 p-0 mb-2">
         <label for="txtTelefono" class="form-control-label form-label">Telefono</label>
-        <input id="txtTelefono" name="txtTelefono" type="text" class="form-control form-element col-12" required>
+        <input id="txtTelefono" name="txtTelefono" type="tel" pattern="[0-9]{1,10}" title="Ingrese número telefonico de 10 digitos" class="form-control form-element col-12" required>
     </div>
     <div class="form-group col-12 p-0 mb-2">
         <label for="txtDireccion" class="form-control-label form-label">Dirección</label>
@@ -274,8 +274,9 @@
     </div>
     <div class="form-group col-12 p-0 mb-2">
         <label for="txtRFC" class="form-control-label form-label">RFC</label>
-        <input id="txtRFC" name="txtRFC" type="text" class="form-control form-element col-12" required>
+        <input id="txtRFC" name="txtRFC" type="text" pattern="^([A-ZÑ\x26]{3,4}([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])([A-Z]|[0-9]){2}([A]|[0-9]){1})?$" title="Ingrese RFC valido. Ejemplo: XXXX000000X00" class="form-control form-element col-12" required>
     </div>
+    <input id="txtId" name="txtId" type="hidden">
 {% endmacro %}
 
 {% macro form_proveedores() %}
