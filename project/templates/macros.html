@@ -158,7 +158,7 @@
     {% for compra in compras %}
     <tr>
         <td>{{compra.id}}</td>
-        <td>{{compra.proveedor.nombre}}</td>
+        <td>{{compra.proveedor.nombre_empresa}}</td>
         <td>{{compra.precio}}</td>
         <td>{{compra.fecha_compra}}</td>
         <td>{{compra.comentarios}}</td>
@@ -220,7 +220,7 @@
         <label for="slctProveedor" class="form-control-label form-label">Proveedor</label>
         <select name="slctProveedor" id="slctProveedor" class="form-control form-element col-12">
             {% for proveedor in proveedores %}
-            <option value="{{proveedor.id}}">{{proveedor.nombre}}</option>
+            <option value="{{proveedor.id}}">{{proveedor.nombre_empresa}}</option>
             {% endfor %}
         </select>
 
