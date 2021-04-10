@@ -14,6 +14,7 @@
         <script src="{{ url_for('static',filename='js/compra.js') }}"></script>
         <script src="{{ url_for('static',filename='js/cliente.js') }}"></script>
         <script src="{{ url_for('static',filename='js/productos.js') }}"></script>
+        <script src="{{ url_for('static',filename='js/proveedores.js') }}"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css"/>
         <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
@@ -40,7 +41,7 @@
                     <a class="nav-link" href="{{ url_for('clientes.getAll') }}">Clientes</a>
                 </li>
                 <li class="nav-item mr-4">
-                    <a class="nav-link" href="/proveedores/">Proveedores</a>
+                    <a class="nav-link" href="{{ url_for('proveedores.getAll') }}">Proveedores</a>
                 </li>
                 <li class="nav-item mr-4">
                     <a class="nav-link" href="{{ url_for('productos.getAll') }}">Productos</a>

@@ -8,7 +8,7 @@ compras = Blueprint('compras', __name__, url_prefix="/compras")
 def getAll():
     compras = db.session.query(Compra).filter(Compra.estatus == 1).all()
     proveedor = db.session.query(Proveedor).all()
-    return render_template('compras/compras.html', compras=compras,proveedor=proveedor)
+    return render_template('compras/compras.html', compras=compras,proveedores=proveedor)
 
 #Agregar/Modificar
 @compras.route('/guardar', methods=["POST"])

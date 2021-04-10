@@ -19,8 +19,8 @@ def create_app():
     db.init_app(app)
     @app.before_first_request
     def create_all():
-        app.logger.debug("Genero tablas en caso de necesitarlo")
         db.create_all()
+        app.logger.debug("Genero tablas en caso de necesitarlo")        
         
     security = Security(app,userDataStore)
     from .auth import auth as auth_blueprint
@@ -35,5 +35,7 @@ def create_app():
     app.register_blueprint(cliente_blueprint)
     from .producto import productos as productos_blueprint
     app.register_blueprint(productos_blueprint)
+    from .proveedor import proveedores as proveedor_blueprint
+    app.register_blueprint(proveedor_blueprint)
     app.logger.debug("Inicio la aplicacion")
     return app

@@ -75,15 +75,28 @@ class Cliente(db.Model):
         return json.dumps(lis)
 
 class Proveedor(db.Model):
-    __tablename__ = "proveedor"    
+    __tablename__ = "proveedor"
     id_proveedor = db.Column(db.Integer, primary_key=True)
     nombre_empresa = db.Column(db.String(100))
-    email = db.Column(db.String(100), nullable=False, unique=True)
+    email = db.Column(db.String(100), nullable=False)
     telefono = db.Column(db.String(25))
     direccion = db.Column(db.String(250))
     contacto = db.Column(db.String(250))
     RFC = db.Column(db.String(125))
     estatus = db.Column(db.Integer, default=1)
+    
+    def toJson(self):
+        lis = {
+            "id_proveedor": self.id_proveedor,
+            "nombre_empresa": self.nombre_empresa,
+            "email": self.email,
+            "telefono": self.telefono,
+            "direccion": self.direccion,
+            "contacto": self.contacto,
+            "RFC": self.RFC,
+            "estatus": self.estatus
+        }
+        return json.dumps(lis)
 
 class Compra(db.Model):
     __tablename__ = "compra"
