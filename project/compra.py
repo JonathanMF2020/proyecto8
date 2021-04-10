@@ -63,4 +63,13 @@ def verguardar():
     return render_template('compras/ver.html',detalles=detalles,materias=materias,id=id)
 
     
-
+@compras.route('/eliminar', methods=["POST"])
+def eliminar():
+    id = int(request.form.get("txtId"))
+    compra = db.session.query(Compra).filter(Compra.id == id).first
+    compra.estatus = 0
+    detalle = db.session.query(DetalleCompra).filter(DetalleCompra.compra_id == compra.id)
+    db.session.delete(detalle)
+    db.session.commit()
+    return redirect(url_for('compras.getAll'))
+    
