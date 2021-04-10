@@ -9,6 +9,10 @@ main = Blueprint('main',__name__)
 def index():
     return render_template('index.html')
 
+@main.route('/base')
+def base():
+    return render_template('home.html')
+
 @main.route('/admin')
 @roles_required('admin')
 def admin():

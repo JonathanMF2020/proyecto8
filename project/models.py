@@ -1,8 +1,10 @@
 from . import db
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import relationship
 from flask_security import UserMixin,RoleMixin
 import datetime
 import json
+import datetime
 
 users_roles = db.Table('users_roles',
     db.Column('userId',db.Integer,db.ForeignKey('user.id'))  ,
@@ -106,7 +108,44 @@ class DetalleCompra(db.Model):
     materia = db.relationship(MateriaPrima,backref="materia_prima")
     compra = db.relationship(Compra,backref="compra")
 
+class Producto(db.Model):
+    __tablename__ = "productos"
+    id = db.Column(db.Integer,primary_key=True)
+    nombre = db.Column(db.String(50))
+    descripcion = db.Column(db.String(200))
+    precio = db.Column(db.Float)
+    cantidad = db.Column(db.Float)
+    estatus = db.Column(db.Integer)
+    detalles = relationship('MateriaPrima', secondary='detalle_producto')
 
+    def toJson(self):
+        pro = {
+            "id": self.id,
+            "nombre": self.nombre,
+            "descripcion": self.descripcion,
+            "precio": self.precio,
+            "cantidad": self.cantidad,
+            "estatus": self.estatus,
+        }
+        return json.dumps(pro)
+
+class DetalleProducto(db.Model):
+    __tablename__ = "detalle_producto"
+    id = db.Column(db.Integer,primary_key=True)
+    producto_id = db.Column(db.Integer(),db.ForeignKey('productos.id'))
+    producto = db.relationship(Producto,backref="detalle_productos")
+    materia_id = db.Column(db.Integer(),db.ForeignKey('materia_prima.id'))
+    materia = db.relationship(MateriaPrima,backref="detalle_productos")
+    cantidad = db.Column(db.Float)
+
+    def toJson(self):
+        prode = {
+            "id": self.id,
+            "producto_id": self.producto_id,
+            "materia_id": self.materia_id,
+            "cantidad": self.cantidad
+        }
+        return json.dumps(prode)
 
 
 

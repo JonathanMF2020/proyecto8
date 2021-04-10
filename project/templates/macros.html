@@ -121,15 +121,14 @@
 
     {% for producto in productos %}
     <tr>
-        <td>{{producto.id_producto}}</td>
+        <td>{{producto.id}}</td>
         <td>{{producto.nombre}}</td>
         <td>{{producto.descripcion}}</td>
         <td>{{producto.precio}}</td>
         <td>{{producto.cantidad}}</td>
         <td>
-            <a onclick="decidirProducto('{{producto}}')" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
-            <a onclick="agregarEjemplares('{{producto}}')" class="btn-small btn-warning btn text-white"><i class="fas fa-plus"></i></a>
-            <a onclick="eliminarProducto('{{producto.id_producto}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
+            <a onclick="modificarProducto({{producto.toJson() | string}})" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
+            <a onclick="confirmarProducto('{{producto.id}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
         </td>
     </tr>
     {% endfor %}
@@ -316,9 +315,14 @@
         <input id="txtPrecio" name="txtPrecio" type="textarea" class="form-control form-element col-12" required>
     </div>
     <div class="form-group col-12 p-0 mb-2">
-        <label for="txtDescripcion" class="form-control-label form-label">Descripción</label>
-        <textarea class="form-control form-element" id="txtDescripcion" name="txtDescripcion" rows="3" required></textarea>
+        <label for="txtCantidad" class="form-control-label form-label">Cantidad</label>
+        <input id="txtCantidad" name="txtCantidad" type="text" class="form-control form-element col-12" disabled>
     </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtDescripcion" class="form-control-label form-label">Descripción</label>
+        <textarea class="form-control form-element col-12" id="txtDescripcion" name="txtDescripcion" rows="3" required></textarea>
+    </div>
+    <input id="txtId" name="txtId" type="hidden">
 {% endmacro %}
 
 {% macro form_materia() %}
