@@ -42,3 +42,51 @@
     border-top-right-radius: 0%;
     border-bottom-right-radius: 0%;
 }
+
+.card{
+    height: 250px;
+    width: 300px;
+    overflow: hidden;
+    margin: auto;
+    padding: 10px 30px;
+    border-radius: 2%;
+    border: 1px solid #fff;
+    transition: all .4s ease-in-out;
+    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.3);
+    text-align: center;
+    background: lightgray;
+
+}
+
+.card:hover{
+    height: 400px;
+    width: 300px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.5);
+}
+
+.card-encabezado img{
+    position: relative;
+    border-radius: 50%;
+    display: block;
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    margin: 20px auto;
+    transition: all 0.3s ease;
+}
+
+.desplazar{
+    opacity: 0;
+    transition: all 0.5s ease;
+    transform: translateY(-45px);
+}
+
+.card:hover .desplazar{
+    transform: translateY(0px);
+    opacity: 1;
+}
+
+.desplazar:nth-child(2){
+    margin: 15px 0;
+}
