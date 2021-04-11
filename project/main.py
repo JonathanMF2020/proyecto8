@@ -10,6 +10,10 @@ main = Blueprint('main',__name__)
 def index():
     return render_template('index.html')
 
+@main.route('/login')
+def login():
+    return render_template('login.html')
+
 @main.route('/base')
 def base():
     return render_template('home.html')

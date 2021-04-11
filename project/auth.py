@@ -16,17 +16,15 @@ def login_users():
 
 @auth.route('/login_users', methods=['POST'])
 def login_users_post():
-    email = request.form.get('email')
-    password = request.form.get('password')
-    remember = True if request.form.get('remember') else False
+    email = request.form.get('txtEmail')
+    password = request.form.get('txtContrasena')
     user = User.query.filter_by(email=email).first()
     if not user or not check_password_hash(user.password, password):
         flash('El usuario y/o la contraseña son incorrectos')
         current_app.logger.error("El usuario y/o la contraseña son incorrectos")
         return redirect(url_for('auth.login_users')) 
-    login_user(user, remember=remember)
     current_app.logger.debug("Se ha logueado")
-    return redirect(url_for('main.profile'))
+    return redirect(url_for('main.base'))
 
 @auth.route('/register_users')
 def register_users():
@@ -51,4 +49,4 @@ def register_users_post():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('main.index'))
+    return redirect(url_for('auth.login_users'))
