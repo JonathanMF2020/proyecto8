@@ -164,8 +164,8 @@
         <td>{{compra.comentarios}}</td>
         <td>{{compra.estatus}}</td>
         <td>
-            <a href="/compras/ver?id={{compra.id}}" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-eye"></i></a>
-            <a onclick="eliminarCompra('{{compra.id_compra}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
+            <a onclick='mostrarModalCompraModificar({{compra.toJson()|string}})' class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-eye"></i></a>
+            <a onclick="confirmarCompra('{{compra.id}}', '{{compra.proveedor.nombre_empresa}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
         </td>
     </tr>
     {% endfor %}

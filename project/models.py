@@ -70,6 +70,17 @@ class Compra(db.Model):
     comentarios = db.Column(db.String(50))
     estatus = db.Column(db.Integer)
     proveedor = db.relationship(Proveedor,backref="proveedor")
+    
+    def toJson(self):
+        lis = {
+            "id": self.id,
+            "proveedor_id": self.proveedor_id,
+            "precio": self.precio,
+            "fecha_compra": self.fecha_compra,
+            "comentarios": self.comentarios,
+            "estatus": self.estatus,
+            "proveedor": self.proveedor
+        }
 
 
 
