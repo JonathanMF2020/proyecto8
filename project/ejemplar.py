@@ -15,12 +15,54 @@ def getByProducto():
     ejemplares = db.session.query(Ejemplar).filter(Ejemplar.producto_id == idP).order_by(Ejemplar.talla.asc()).all()
     return render_template("ejemplares.html", ejemplares=ejemplares, producto=producto.nombre)
 
+@ejem.route('/getTallas')
+def getTallas():
+    idP = int(request.args.get("txtIdP"))
+    tallas = []
+    
+    ejemplares = Ejemplar.query.filter(Ejemplar.producto_id==idP).order_by(Ejemplar.talla.asc()).all()
+    for ejemplar in ejemplares:
+        if not ejemplar.talla in tallas:
+            tallas.append(ejemplar.talla)
+    
+    return json.dumps(tallas)
+
+@ejem.route('/getColores')
+def getColores():
+    idP = int(request.args.get("txtIdP"))
+    talla = float(request.args.get("txtTalla"))
+    colores = []
+
+    ejemplares = Ejemplar.query.filter(Ejemplar.producto_id==idP, Ejemplar.talla==talla).order_by(Ejemplar.color.asc()).all()
+    for ejemplar in ejemplares:
+        if not ejemplar.color in colores:
+            colores.append(ejemplar.color)
+    
+    return json.dumps(colores)
+
+@ejem.route('/getCantidad')
+def getCantidad():
+    idP = int(request.args.get("txtIdP"))
+    talla = float(request.args.get("txtTalla"))
+    color = request.args.get("txtColor")
+    result = {}
+
+    ejemplar = Ejemplar.query.filter(Ejemplar.producto_id==idP, Ejemplar.talla==talla, Ejemplar.color==color).first()
+    result["cantidad"] = ejemplar.cantidad
+    
+    return json.dumps(result)
+
 @ejem.route('/guardar', methods=["POST"])
 def guardar():
     idP = int(request.form.get("txtIdP"))
     talla = float(request.form.get("lstTalla"))
     color = request.form.get("txtColor")
     cantidad = int(request.form.get("txtCantidad"))
+
+    tmp = Ejemplar.query.filter(Ejemplar.producto_id==idP, Ejemplar.talla==talla, Ejemplar.color==color).first()
+    if tmp != None:
+        flash("Ya existe un ejemplar para esa talla y color", "warning")
+        return redirect("getByProducto?txtIdP="+str(idP))
 
     if request.form.get("txtId") != "":
         id=request.form.get("txtId")
@@ -36,14 +78,6 @@ def guardar():
     flash("Ejemplar guardado exitosamente", "success")
     db.session.commit()
     return redirect("getByProducto?txtIdP="+str(idP))
-
-def restar(id, cantidad):
-    ejemplar = Ejemplar.query.filter_by(id=id)
-    ejemplar.cantidad = ejemplar.cantidad-cantidad
-    db.session.add(ejemplar)
-    db.session.commit()
-    result = {"result":"OK"}
-    return json.dumps(result)
 
 @ejem.route('/eliminar', methods=["POST"])
 def eliminar():
