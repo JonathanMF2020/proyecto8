@@ -48,8 +48,8 @@ def getCantidad():
     result = {}
 
     ejemplar = Ejemplar.query.filter(Ejemplar.producto_id==idP, Ejemplar.talla==talla, Ejemplar.color==color).first()
-    result["cantidad"] = ejemplar.cantidad
-    
+    result = {"result":ejemplar.cantidad}
+
     return json.dumps(result)
 
 @ejem.route('/guardar', methods=["POST"])
@@ -59,6 +59,10 @@ def guardar():
     color = request.form.get("txtColor")
     cantidad = int(request.form.get("txtCantidad"))
 
+<<<<<<< HEAD
+=======
+   
+>>>>>>> 73a8f12e805ac5cc681dda7f44fa59a452d044e6
     if request.form.get("txtId") != "":
         id=request.form.get("txtId")
         ejemplar = Ejemplar.query.filter_by(id=id).first()
@@ -75,7 +79,11 @@ def guardar():
         if tmp != None:
             flash("Ya existe un ejemplar para esa talla y color", "warning")
             return redirect("getByProducto?txtIdP="+str(idP))
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 73a8f12e805ac5cc681dda7f44fa59a452d044e6
         ejemplar = Ejemplar(producto_id=idP, talla=talla, color=color, cantidad=cantidad)
         db.session.add(ejemplar)
         db.session.commit()
