@@ -4,7 +4,6 @@ from sqlalchemy.orm import relationship
 from flask_security import UserMixin,RoleMixin
 import datetime
 import json
-import datetime
 
 users_roles = db.Table('users_roles',
     db.Column('userId',db.Integer,db.ForeignKey('user.id'))  ,
@@ -146,6 +145,68 @@ class DetalleProducto(db.Model):
             "cantidad": self.cantidad
         }
         return json.dumps(prode)
+class Venta(db.Model):
+    __tablename__ = "venta"
+    id = db.Column(db.Integer,primary_key=True)
+    cliente_id = db.Column(db.Integer(),db.ForeignKey('cliente.id'))
+    cliente = db.relationship(Cliente,backref="clientess")
+    precio = db.Column(db.Float)
+    date = db.Column(db.Date)
+    comentarios = db.Column(db.String(200))
+    estatus = db.Column(db.Integer)
+    def toJson(self):
+        venta = {
+            "id": self.id,
+            "cliente_id": self.cliente_id,
+            "precio": self.precio,
+            "date": str(self.date),
+            "comentarios": self.comentarios,
+            "estatus": self.estatus
+        }
+        return json.dumps(venta)
+class DetalleVenta(db.Model):
+    __tablename__ = "detalle_venta"
+    id = db.Column(db.Integer,primary_key=True)
+    venta_id = db.Column(db.Integer(),db.ForeignKey('venta.id'))
+    venta = db.relationship(Venta,backref="ventas")
+    producto_id = db.Column(db.Integer(),db.ForeignKey('productos.id'))
+    producto = db.relationship(Producto,backref="productos")
+    talla = db.Column(db.Integer)
+    color = db.Column(db.String(200))
+    cantidad = db.Column(db.Integer)
+    precio_unitario = db.Column(db.Float)
+    def toJson(self):
+        detalleVenta = {
+            "id": self.id,
+            "producto_id": self.producto_id,
+            "venta_id": self.venta_id,
+            "talla": self.talla,
+            "color": self.color,
+            "cantidad": self.cantidad,
+            "precio_unitario": self.precio_unitario
+        }
+        return json.dumps(detalleVenta)
+class Ejemplar(db.Model):
+    __tablename__ = "ejemplar"
+    id = db.Column(db.Integer,primary_key=True)
+    producto_id = db.Column(db.Integer(),db.ForeignKey('productos.id'))
+    producto = db.relationship(Producto,backref="productoss")
+    venta_id = db.Column(db.Integer(),db.ForeignKey('venta.id'))
+    venta = db.relationship(Venta,backref="ventass")
+    talla = db.Column(db.Integer)
+    color = db.Column(db.String(200))
+    precio_unitario = db.Column(db.Float)
+    def toJson(self):
+        ejemplar = {
+            "id": self.id,
+            "producto_id": self.producto_id,
+            "venta_id": self.venta_id,
+            "talla": self.talla,
+            "color": self.color,
+            "cantidad": self.cantidad,
+            "precio_unitario": self.precio_unitario
+        }
+        return json.dumps(ejemplar)
 
 
 
