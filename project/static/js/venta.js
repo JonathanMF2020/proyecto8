@@ -368,20 +368,17 @@ function guardarProducto2(){
 function mostrarModalVemtas3(){
     $("#modalVentas").modal("hide");
     $("#modalVentasLabel2").html("Modificar Venta");
-
     $("#txtCantidadM").val(0);
     $("#tblDetalleProducto").html("");
     $("#btnAgregarMateriaP2").removeProp("hidden");
     $("#btnAgregarMateriaP").prop("hidden", "true");
     $("#btnGuardarProducto2").removeProp("hidden");
     $("#btnGuardarProducto").prop("hidden", "true");
-
     $("#btnGuardarVenta2").removeProp("hidden");
     $("#btnGuardarVenta").prop("hidden", "true");
     $("#btnAgregarVentasP2").removeProp("hidden");
     $("#btnAgregarVentasP").prop("hidden", "true");
     llenarListaProductosVenta();
     actualizarDetalleProductoVentas(1);
-
     $("#modalVentas2").modal("show");
 }
