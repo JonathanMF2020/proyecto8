@@ -36,6 +36,34 @@ $.ajax({
 });
 }
 
+function llenarListaClientes2(idr){
+    $.ajax({
+        type: "GET",
+        url: "http://127.0.0.1:5000/clientes/getAll",
+        async: true,
+        success: function (data) {
+            clientes = JSON.parse(data);
+            var str = "";
+            for(var i = 0; i < clientes.length; i++){
+    
+                var cliente = JSON.parse(clientes[i]);
+                if(parseInt(idr) == parseInt(cliente.id))
+                {
+                    str+="<option value="+cliente.id+" selected>";
+                    str+= cliente.nombre_empresa;
+                    str+="</option>";
+                }else{
+                    str+="<option value="+cliente.id+">";
+                    str+= cliente.nombre_empresa;
+                    str+="</option>";
+                }
+                
+            }
+            $("#lstCliente").html(str);
+        }
+    });
+    }
+
 function siguienteClientes(){
     var pos = $("#lstCliente").val();
     var fecha = $("#txtFecha").val();
@@ -230,10 +258,7 @@ function eliminarProductoVentaP2(pos){
     function modificarVentas(vent){
         venta = vent;
         var valor=venta.cliente_id;
-        llenarListaClientes();
-        console.log(venta.cliente_id);
-        $("#lstCliente").val(2).change();
-
+        llenarListaClientes2(venta.cliente_id);
         $("#modalVentas").modal("show");
         $("#modalVentasLabel").html("Modificar Venta");
         $("#txtId").val(venta.id);
