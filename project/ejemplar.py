@@ -59,11 +59,6 @@ def guardar():
     color = request.form.get("txtColor")
     cantidad = int(request.form.get("txtCantidad"))
 
-    tmp = Ejemplar.query.filter(Ejemplar.producto_id==idP, Ejemplar.talla==talla, Ejemplar.color==color).first()
-    if tmp != None:
-        flash("Ya existe un ejemplar para esa talla y color", "warning")
-        return redirect("getByProducto?txtIdP="+str(idP))
-
     if request.form.get("txtId") != "":
         id=request.form.get("txtId")
         ejemplar = Ejemplar.query.filter_by(id=id).first()
@@ -71,12 +66,24 @@ def guardar():
         ejemplar.color = color
         ejemplar.cantidad = cantidad
         db.session.add(ejemplar)
+        db.session.commit()
+        if ejemplar.cantidad < cantidad:
+            flash("No hay suficiente materia prima, la cantidad no fue modificada", "warning")
+            return redirect("getByProducto?txtIdP="+str(idP))
     else:
+        tmp = Ejemplar.query.filter(Ejemplar.producto_id==idP, Ejemplar.talla==talla, Ejemplar.color==color).first()
+        if tmp != None:
+            flash("Ya existe un ejemplar para esa talla y color", "warning")
+            return redirect("getByProducto?txtIdP="+str(idP))
+        
         ejemplar = Ejemplar(producto_id=idP, talla=talla, color=color, cantidad=cantidad)
         db.session.add(ejemplar)
+        db.session.commit()
+        if ejemplar.cantidad == 0:
+            flash("No hay suficiente materia prima, la cantidad no fue insertada", "warning")
+            return redirect("getByProducto?txtIdP="+str(idP))
 
     flash("Ejemplar guardado exitosamente", "success")
-    db.session.commit()
     return redirect("getByProducto?txtIdP="+str(idP))
 
 @ejem.route('/eliminar', methods=["POST"])
