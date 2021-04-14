@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect,url_for, make_re
 from flask_security import login_required, current_user
 from flask_security.decorators import roles_required
 from . import db
-from .models import Producto, Ejemplar
+from .models import Producto, Ejemplar, DetalleProducto, MateriaPrima
 import json
 
 #nombre del blueprint (abreviado), el prefijo debe ser el nombre del modulo
@@ -58,26 +58,43 @@ def guardar():
     talla = float(request.form.get("lstTalla"))
     color = request.form.get("txtColor")
     cantidad = int(request.form.get("txtCantidad"))
+    message="El ejemplar se guardo correctamente"
+    status="success"
 
-   
     if request.form.get("txtId") != "":
         id=request.form.get("txtId")
         ejemplar = Ejemplar.query.filter_by(id=id).first()
-        ejemplar.talla = talla
-        ejemplar.color = color
-        ejemplar.cantidad = cantidad
-        db.session.add(ejemplar)
+
+        if cantidad > ejemplar.cantidad:
+            if restarMaterias(ejemplar.producto_id, (cantidad-ejemplar.cantidad)):
+                ejemplar.talla = talla
+                ejemplar.color = color
+                ejemplar.cantidad = cantidad
+                db.session.add(ejemplar)
+                db.session.commit()
+            else:
+                db.session.rollback()
+                message="No hay materia prima suficiente para modificar el ejemplar"
+                status="warning"
+        else:
+            message="El campo cantidad no puede disminuir"
+            status="warning"
     else:
         tmp = Ejemplar.query.filter(Ejemplar.producto_id==idP, Ejemplar.talla==talla, Ejemplar.color==color).first()
         if tmp != None:
-            flash("Ya existe un ejemplar para esa talla y color", "warning")
-            return redirect("getByProducto?txtIdP="+str(idP))
+            message="Ya existe un ejemplar para esa talla y color"
+            status="warning"
+        else:
+            ejemplar = Ejemplar(producto_id=idP, talla=talla, color=color, cantidad=cantidad)
+            db.session.add(ejemplar)
+            if restarMaterias(ejemplar.producto_id, ejemplar.cantidad):
+                db.session.commit()
+            else:
+                db.session.rollback()
+                message="No hay materia prima suficiente para insertar el ejemplar"
+                status="warning"
 
-        ejemplar = Ejemplar(producto_id=idP, talla=talla, color=color, cantidad=cantidad)
-        db.session.add(ejemplar)
-
-    flash("Ejemplar guardado exitosamente", "success")
-    db.session.commit()
+    flash(message, status)
     return redirect("getByProducto?txtIdP="+str(idP))
 
 @ejem.route('/eliminar', methods=["POST"])
@@ -88,3 +105,18 @@ def eliminar():
     db.session.delete(ejemplar)
     db.session.commit()
     return json.dumps(result)
+
+def restarMaterias(idP, cantidadE):
+    result = True
+    detalles = DetalleProducto.query.filter(DetalleProducto.producto_id==idP)
+    for detalle in detalles:
+        cantidadT = detalle.cantidad*cantidadE
+        materia = MateriaPrima.query.filter_by(id=detalle.materia_id).first()
+        if cantidadT <= materia.cantidad:
+            materia.cantidad = materia.cantidad-cantidadT
+            db.session.add(materia)
+        else:
+            result = False
+            db.session.rollback()
+            break
+    return result
