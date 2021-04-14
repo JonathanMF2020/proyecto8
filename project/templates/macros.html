@@ -136,9 +136,9 @@
         <td>{{producto.precio}}</td>
         <td>{{producto.cantidad}}</td>
         <td>
-            <a onclick="modificarProducto({{producto.toJson() | string}})" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
-            <a href="/ejemplares/getByProducto?txtIdP={{producto.id}}" class="mr-3 btn-small btn-info btn text-white"><i class="fas fa-box"></i></a>
-            <a onclick="confirmarProducto('{{producto.id}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
+            <a title="Modificar" onclick="modificarProducto({{producto.toJson() | string}})" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
+            <a title="Inventario" href="/ejemplares/getByProducto?txtIdP={{producto.id}}" class="mr-3 btn-small btn-info btn text-white"><i class="fas fa-box"></i></a>
+            <a title="Eliminar" onclick="confirmarProducto('{{producto.id}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
         </td>
     </tr>
     {% endfor %}
@@ -408,7 +408,7 @@
             <option value="dm">Decimetros</option>
             <option value="kg">Kilogramos</option>
             <option value="g">Gramos</option>
-            <option value="l">Litros</option>
+            <option value="L">Litros</option>
             <option value="pz">Piezas</option>
         </select>
     </div>
@@ -454,7 +454,7 @@
 {% macro render_table(objects, type) %}
 <div class="table-responsive col-12">
     <table class="table table-striped" id="tabla">
-        <thead class="text-white" style="background-color: #DB7B7B;">
+        <thead class="text-white" style="background-color: #73787e;">
             <tr>
                 {% if type=="clientes" %}
                     {{header_clientes()}}
