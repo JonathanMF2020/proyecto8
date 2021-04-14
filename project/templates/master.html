@@ -31,7 +31,7 @@
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 {% if(current_user.roles[0].name == "admin")%}
                 <li class="nav-item mr-4">
-                    <a class="nav-link" href="/inicio/">Inicio</a>
+                    <a class="nav-link" href="/base">Inicio</a>
                 </li>
                 <li class="nav-item mr-4">
                     <a class="nav-link" href="/ventas/">Ventas</a>
@@ -60,7 +60,7 @@
                 {%endif%}
                 {% if(current_user.roles[0].name == "almacenista")%}
                 <li class="nav-item mr-4">
-                    <a class="nav-link" href="/inicio/">Inicio</a>
+                    <a class="nav-link" href="/base">Inicio</a>
                 </li>
                 <li class="nav-item mr-4">
                     <a class="nav-link" href="{{ url_for('productos.getAll') }}">Productos</a>
@@ -74,7 +74,7 @@
                 {%endif%}
                 {% if(current_user.roles[0].name == "surtidor")%}
                 <li class="nav-item mr-4">
-                    <a class="nav-link" href="/inicio/">Inicio</a>
+                    <a class="nav-link" href="/base">Inicio</a>
                 </li>
                 <li class="nav-item mr-4">
                     <a class="nav-link" href="{{ url_for('compras.getAll') }}">Compras</a>
@@ -89,7 +89,7 @@
                 {%endif%}
                 {% if(current_user.roles[0].name == "vendedor")%}
                 <li class="nav-item mr-4">
-                    <a class="nav-link" href="/inicio/">Inicio</a>
+                    <a class="nav-link" href="/bas/">Inicio</a>
                 </li>
                 <li class="nav-item mr-4">
                     <a class="nav-link" href="/ventas/">Ventas</a>
