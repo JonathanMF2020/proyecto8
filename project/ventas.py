@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect,url_for, make_re
 from flask_security import login_required, current_user
 from flask_security.decorators import roles_required
 from . import db
-from .models import Producto, DetalleProducto, MateriaPrima, Venta,DetalleVenta
+from .models import Producto, DetalleProducto, MateriaPrima, Venta,DetalleVenta, Ejemplar
 import json
 
 #nombre del blueprint (abreviado), el prefijo debe ser el nombre del modulo
@@ -26,6 +26,7 @@ def guardar():
         vent.cliente_id = cliente_id
         vent.date = date
         vent.comentarios = comentarios
+
         db.session.add(vent)
         db.session.commit()
         response = {"result":"OK"}
@@ -67,11 +68,17 @@ def guardar():
             productitoDeta = DetalleVenta(
                 venta_id = int(idVenta),
                 producto_id = idP,
-                talla = talla,
+                talla = float(talla),
                 color = color,
                 cantidad = float(cantidad),
                 precio_unitario = produc.precio
             )
+            produc = db.session.query(Producto).filter(Producto.estatus == 1).filter(Producto.id == idP).first()
+            tmp = Ejemplar.query.filter(Ejemplar.producto_id==idP, Ejemplar.talla==talla, Ejemplar.color==color).first()
+            catnidad = tmp.cantidad - int(cantidad) 
+            tmp.cantidad = catnidad
+            db.session.add(tmp)
+
             db.session.add(productitoDeta)
         db.session.commit()
         response = {"result":"OK"}
@@ -94,14 +101,20 @@ def eliminar_detalle():
     id = int(request.form.get("txtId"))
     detallesventa = db.session.query(DetalleVenta).filter(DetalleVenta.id == id).first()
     suma= float(detallesventa.cantidad) * float(detallesventa.precio_unitario)
+    cantFo = float(detallesventa.cantidad)
     idV=detallesventa.venta_id
     ventaww = db.session.query(Venta).filter(Venta.id == idV).first()
     cantoo=ventaww.precio
     sumaFin = int(cantoo)-int(suma)
     ventaww.precio= sumaFin
+    tmp = Ejemplar.query.filter(Ejemplar.producto_id==detallesventa.producto_id, Ejemplar.talla==detallesventa.talla, Ejemplar.color==detallesventa.color).first()
+    catnidad = tmp.cantidad + int(cantFo) 
+    tmp.cantidad = catnidad
+    db.session.add(tmp)
     db.session.delete(detallesventa)
     vent = db.session.query(Venta).filter(Venta.estatus == 1).filter(Venta.id == idV).first()
     vent.precio = sumaFin
+
     db.session.add(vent)
     db.session.commit()
     response = {"result":"OK"}
@@ -142,11 +155,17 @@ def agregar_detalle():
     productitoDeta = DetalleVenta(
                 venta_id = idVentas,
                 producto_id = idProdi,
-                talla = talla,
+                talla = float(talla),
                 color = color,
                 cantidad = cantidad,
                 precio_unitario = precioProducto
         )
+    produc = db.session.query(Producto).filter(Producto.estatus == 1).filter(Producto.id == idP).first()
+    tmp = Ejemplar.query.filter(Ejemplar.producto_id==idP, Ejemplar.talla==talla, Ejemplar.color==color).first()
+    catnidad = tmp.cantidad - int(cantidad) 
+    tmp.cantidad = catnidad
+    db.session.add(tmp)
+
     db.session.add(productitoDeta)
     db.session.commit()
     idtut=productitoDeta.id

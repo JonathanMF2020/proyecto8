@@ -186,7 +186,7 @@ class DetalleVenta(db.Model):
     venta = db.relationship(Venta,backref="ventas")
     producto_id = db.Column(db.Integer(),db.ForeignKey('productos.id'))
     producto = db.relationship(Producto,backref="productos")
-    talla = db.Column(db.Integer)
+    talla = db.Column(db.Float)
     color = db.Column(db.String(200))
     cantidad = db.Column(db.Integer)
     precio_unitario = db.Column(db.Float)
