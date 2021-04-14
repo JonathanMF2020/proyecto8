@@ -26,11 +26,28 @@ class User(UserMixin, db.Model):
         backref=db.backref('user',lazy='dynamic')                        
     )
 
+    def toJson(self):
+        lis = {
+            "id": self.id,
+            "name": self.name,
+            "email": self.email,
+            "rol": Role.toJson(self.roles[0]),
+        }
+        return json.dumps(lis)
+
 class Role(RoleMixin, db.Model):
     __tablename__ = 'role'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(255))
+
+    def toJson(self):
+        lis = {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+        }
+        return json.dumps(lis)
     
 class MateriaPrima(db.Model):
     __tablename__ = "materia_prima"

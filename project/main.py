@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
-from flask_security import login_required, current_user
-from flask_security.decorators import roles_required
+from flask_security import current_user
+from flask_security.decorators import roles_required,login_required,roles_accepted
 from . import db
 
 
@@ -15,12 +15,10 @@ def login():
     return render_template('login.html')
 
 @main.route('/base')
+@roles_accepted('admin', 'vendedor','surtidor','almacenista')
 def base():
     return render_template('home.html')
 
-@main.route('/admin')
-@roles_required('admin')
-def admin():
-    return render_template('profile.html', name=current_user.name)
+
 
 

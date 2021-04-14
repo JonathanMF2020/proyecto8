@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect,url_for, make_response, flash
 from flask_security import login_required, current_user
-from flask_security.decorators import roles_required
+from flask_security.decorators import roles_required,login_required,roles_accepted
 from . import db
 from .models import Producto, DetalleProducto, MateriaPrima
 import json
@@ -9,6 +9,7 @@ import json
 productos = Blueprint('productos', __name__, url_prefix="/productos")
 
 @productos.route('/')
+@roles_accepted('admin','almacenista')
 def getAll():
     productos = db.session.query(Producto).filter(Producto.estatus == 1).all()
     return render_template('productos.html', productos=productos)
