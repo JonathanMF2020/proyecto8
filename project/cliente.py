@@ -15,6 +15,15 @@ def getAll():
     clientes = db.session.query(Cliente).filter(Cliente.estatus == 1).all()
     return render_template('clientes.html', clientes=clientes)
 
+#Traer clientes
+@cliente.route('/getAll')
+def getJson():
+    clientes = db.session.query(Cliente).filter(Cliente.estatus == 1).all()
+    list_cliente = []
+    for m in clientes:
+        list_cliente.append(m.toJson())
+    return json.dumps(list_cliente)
+
 #Agregar/Modificar
 @cliente.route('/guardar', methods=["POST"])
 def guardar():

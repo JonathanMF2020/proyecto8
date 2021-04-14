@@ -1,28 +1,28 @@
 .form-element{
-    color: #DB7B7B;
-    border-color: #DB7B7B; 
+    color: #0f5398;
+    border-color: #0f5398; 
     background-color: #FFFFFF;
 }
 
 .form-label{
-    color: #DB7B7B;
+    color: #0f5398;
 }
 
 .btn-rose{
     color: white;
-    border-color: #DB7B7B; 
-    background-color: #DB7B7B;
+    border-color: #2977c4; 
+    background-color: #2977c4;
 }
 
 .btn-rose:hover{
     color: white;
-    border-color: #b96969; 
-    background-color: #b96969;
+    border-color: #205c97; 
+    background-color: #205c97;
 }
 .btn-search{
     color: white;
-    border-color: #DB7B7B; 
-    background-color: #DB7B7B;
+    border-color: #0f5398; 
+    background-color: #0f5398;
     border-top-left-radius: 0%;
     border-bottom-left-radius: 0%;
 }

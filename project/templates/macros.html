@@ -35,6 +35,15 @@
 
 {% endmacro %}
 
+{% macro header_ejemplares() %}
+
+    <th>Talla</th>
+    <th>Color</th>
+    <th>Cantidad</th>
+    <th>Acciones</th>
+
+{% endmacro %}
+
 {% macro header_materia() %}
 
     <th>id</th>
@@ -53,6 +62,15 @@
     <th>Fecha</th>
     <th>Comentarios</th>
     <th>Estado</th>
+    <th>Acciones</th>
+
+{% endmacro %}
+
+{% macro header_detalles_compras() %}
+
+    <th>Cantidad</th>
+    <th>Subtotal</th>
+    <th>Producto</th>
     <th>Acciones</th>
 
 {% endmacro %}
@@ -138,8 +156,25 @@
         <td>{{producto.precio}}</td>
         <td>{{producto.cantidad}}</td>
         <td>
-            <a onclick="modificarProducto({{producto.toJson() | string}})" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
-            <a onclick="confirmarProducto('{{producto.id}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
+            <a title="Modificar" onclick="modificarProducto({{producto.toJson() | string}})" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
+            <a title="Inventario" href="/ejemplares/getByProducto?txtIdP={{producto.id}}" class="mr-3 btn-small btn-info btn text-white"><i class="fas fa-box"></i></a>
+            <a title="Eliminar" onclick="confirmarProducto('{{producto.id}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
+        </td>
+    </tr>
+    {% endfor %}
+
+{% endmacro %}
+
+{% macro table_ejemplares(ejemplares) %}
+
+    {% for ejemplar in ejemplares %}
+    <tr>
+        <td>{{ejemplar.talla}}</td>
+        <td>{{ejemplar.color}}</td>
+        <td>{{ejemplar.cantidad}}</td>
+        <td>
+            <a onclick="modificarEjemplar({{ejemplar.toJson() | string}})" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
+            <a onclick="confirmarEjemplar('{{ejemplar.id}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
         </td>
     </tr>
     {% endfor %}
@@ -220,14 +255,14 @@
 
     {% for venta in ventas %}
     <tr>
-        <td>{{venta.id_venta}}</td>
-        <td>{{venta.cliente}}</td>
+        <td>{{venta.id}}</td>
+        <td>{{venta.cliente.nombre_empresa}}</td>
         <td>{{venta.precio}}</td>
-        <td>{{venta.fecha}}</td>
+        <td>{{venta.date}}</td>
         <td>{{venta.comentarios}}</td>
         <td>
-            <a onclick="detalleVenta('{{venta}}')" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-eye"></i></a>
-            <a onclick="eliminarVenta('{{venta.id_venta}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
+            <a onclick="modificarVentas({{venta.toJson()|string}})" class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-eye"></i></a>
+            <a onclick="confirmarVenta('{{venta.id}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
         </td>
     </tr>
     {% endfor %}
@@ -376,6 +411,44 @@
     <input id="txtId" name="txtId" type="hidden">
 {% endmacro %}
 
+{% macro form_ejemplares() %}
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="lstTalla" class="form-control-label form-label">Talla</label>
+        <select id="lstTalla" name="lstTalla" class="form-control form-element col-12" required>
+            <option value="22">22</option>
+            <option value="22.5">22.5</option>
+            <option value="23">23</option>
+            <option value="23.5">23.5</option>
+            <option value="24">24</option>
+            <option value="24.5">24.5</option>
+            <option value="25">25</option>
+            <option value="25.5">25.5</option>
+            <option value="26">26</option>
+            <option value="26.5">26.5</option>
+            <option value="27">27</option>
+            <option value="27.5">27.5</option>
+            <option value="28">28</option>
+            <option value="28.5">28.5</option>
+            <option value="29">29</option>
+            <option value="29.5">29.5</option>
+            <option value="30">30</option>
+            <option value="30.5">30.5</option>
+            <option value="31">31</option>
+            <option value="31.5">31.5</option>
+        </select>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtColor" class="form-control-label form-label">Color</label>
+        <input id="txtColor" name="txtColor" type="textarea" class="form-control form-element col-12" required>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtCantidad" class="form-control-label form-label">Cantidad</label>
+        <input id="txtCantidad" name="txtCantidad" type="text" class="form-control form-element col-12" required>
+    </div>
+    <input id="txtId" name="txtId" type="hidden">
+    <input id="txtIdP" name="txtIdP" type="hidden" value="{{idP}}">
+{% endmacro %}
+
 {% macro form_materia() %}
     <div class="form-group col-12 p-0 mb-2">
         <label for="txtNombre" class="form-control-label form-label">Nombre</label>
@@ -395,18 +468,53 @@
             <option value="dm">Decimetros</option>
             <option value="kg">Kilogramos</option>
             <option value="g">Gramos</option>
-            <option value="l">Litros</option>
+            <option value="L">Litros</option>
             <option value="pz">Piezas</option>
         </select>
     </div>
     <input id="txtId" name="txtId" type="hidden">
 
 {% endmacro %}
+{% macro form_ventas() %}
+<div class="form-group col-12 p-0 mb-2">
+    <label for="lstCliente" class="form-control-label form-label">Cliente</label>
+    <select id="lstCliente" name="lstCliente" class="form-control form-element col-12" required>
+
+    </select>
+</div>    
+<div class="form-group col-12 p-0 mb-2">
+    <label for="txtFecha" class="form-control-label form-label">Fecha</label>
+    <input id="txtFecha" name="txtFecha" type="date" class="form-control form-element col-12" required>
+</div>
+<div class="form-group col-12 p-0 mb-2">
+    <label for="txtComentarios" class="form-control-label form-label">Comentarios</label>
+    <textarea class="form-control form-element col-12" id="txtComentarios" name="txtComentarios" rows="3" required></textarea>
+</div>
+<input id="txtId" name="txtId" type="hidden">
+{% endmacro %}
+
+{% macro form_ventas() %}
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="lstCliente" class="form-control-label form-label">Cliente</label>
+        <select id="lstCliente" name="lstCliente" class="form-control form-element col-12" required>
+
+        </select>
+    </div>    
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtFecha" class="form-control-label form-label">Fecha</label>
+        <input id="txtFecha" name="txtFecha" type="date" class="form-control form-element col-12" required>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtComentarios" class="form-control-label form-label">Comentarios</label>
+        <textarea class="form-control form-element col-12" id="txtComentarios" name="txtComentarios" rows="3" required></textarea>
+    </div>
+    <input id="txtId" name="txtId" type="hidden">
+{% endmacro %}
 
 {% macro render_table(objects, type) %}
 <div class="table-responsive col-12">
     <table class="table table-striped" id="tabla">
-        <thead class="text-white" style="background-color: #DB7B7B;">
+        <thead class="text-white" style="background-color: #73787e;">
             <tr>
                 {% if type=="clientes" %}
                     {{header_clientes()}}
@@ -414,6 +522,8 @@
                     {{header_proveedores()}}
                 {% elif type=="productos" %}
                     {{header_productos()}}
+                {% elif type=="ejemplares" %}
+                    {{header_ejemplares()}}
                 {% elif type=="materia" %}
                     {{header_materia()}}
                 {% elif type=="compras" %}
@@ -434,6 +544,8 @@
                 {{table_proveedores(objects)}}
             {% elif type=="productos" %}
                 {{table_productos(objects)}}
+            {% elif type=="ejemplares" %}
+                {{table_ejemplares(objects)}}
             {% elif type=="materia" %}
                 {{table_materia(objects)}}
             {% elif type=="compras" %}
@@ -457,6 +569,8 @@
         {{form_proveedores()}}
     {% elif type=="productos" %}
         {{form_productos()}}
+    {% elif type=="ejemplares" %}
+        {{form_ejemplares()}}
     {% elif type=="materia" %}
         {{form_materia()}}
     {% elif type=="compras" %}

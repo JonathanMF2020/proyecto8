@@ -14,6 +14,15 @@ def getAll():
     productos = db.session.query(Producto).filter(Producto.estatus == 1).all()
     return render_template('productos.html', productos=productos)
 
+#Traer clientes
+@productos.route('/getAll')
+def getJson():
+    productos = db.session.query(Producto).filter(Producto.estatus == 1).all()
+    list_producto = []
+    for m in productos:
+        list_producto.append(m.toJson())
+    return json.dumps(list_producto)
+
 @productos.route('/getDetalles')
 def getDetalles():
     id = int(request.args.get("txtId"))

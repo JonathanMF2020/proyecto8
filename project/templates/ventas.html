@@ -1,0 +1,99 @@
+{% extends "master.html" %}
+
+{% from "macros.html" import render_table %}
+{% from "macros.html" import render_form %}
+
+{% block content %}
+<div class="row col-12 justify-content-center p-0 m-0">
+    <div class="row col-10 justify-content-center p-0 m-0">
+        <h3 class="h3 col-12 text-center mb-3 text-black">Ventas</h3>
+        <div class="row col-12 justify-content-center mb-3">
+            <a onclick="agregarVenta()" class="btn-small btn-rose btn mr-2 text-white"><i class="fas fa-plus mr-2"></i>Agregar</a>
+        </div>
+        {{render_table(ventas, "ventas")}}
+    </div>
+</div>
+
+<div class="modal fade" id="modalVentas" tabindex="-1" role="dialog" aria-labelledby="modalProductosLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalVentasLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            {{render_form("ventas")}}
+
+        </div>
+        <div class="modal-footer">
+          <button id="btnSiguiente1" onclick="siguienteClientes()" class="btn btn-success">Siguiente</button>
+          <button id="btnSiguiente2" onclick="editarVenta()" class="btn btn-success">Siguiente</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalVentas2" tabindex="-1" role="dialog" aria-labelledby="modalVentasLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalVentasLabel2">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+          <div class="col-12 mb-0">
+            <div class="modal-body">
+            <div class="form-group col-12 p-0 mb-2">
+                <label for="lstProductosP" class="form-control-label form-label">Productos</label>
+                <select id="lstProductosP" name="lstProductosP" class="form-control form-element col-12" onchange="llenarListaTallas()" required>
+                </select>
+            </div>
+            <div class="form-group col-12 p-0 mb-2">
+              <div class="form-group col-12 p-0 mb-2">
+                <label for="txtTalla" class="form-control-label form-label">Productos</label>
+                <select id="txtTalla" name="txtTalla" class="form-control form-element col-12" onchange="llenarListaColores()" required>
+                </select>
+              </div>
+            </div>
+            <div class="form-group col-12 p-0 mb-2">
+              <label for="lstColores" class="form-control-label form-label">Color</label>
+              <select id="lstColores" name="lstColores" class="form-control form-element col-12" required>
+              </select>
+            </div>
+            <div class="form-group col-12 p-0 mb-2">
+              <label for="txtCantidadV" class="form-control-label form-label">Cantidad</label>
+              <input id="txtCantidadV" name="txtCantidadV" type="number" class="form-control form-element col-12" required>
+            </div>
+            <div class="form-group col-12 p-0">
+              <button id="btnAgregarVentasP" onclick="agregarProductoVentaP()" class="btn btn-outline-primary col-12">Agregar</button>
+              <button id="btnAgregarVentasP2" onclick="agregarProductoVentaP2()" class="btn btn-outline-primary col-12">Agregar</button>
+          </div>
+          </div>
+          <div class="table-resposive col-12">
+              <table class="table table-striped">
+                  <thead class="text-white" style="background-color: #DB7B7B;">
+                      <tr>
+                          <th>Producto</th>
+                          <th>Cantidad</th>
+                          <th></th>
+                      </tr>
+                  </thead>
+                  <tbody id="tblDetalleVenta" class="text-black">
+          
+                  </tbody>
+              </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="btnGuardarVenta" onclick="guardarVenta()" class="btn btn-success">Guardar</button>
+          <button id="btnGuardarVenta2" onclick="guardarVenta2()" class="btn btn-success">Guardar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
