@@ -53,7 +53,7 @@ class MateriaPrima(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     nombre = db.Column(db.String(50))
     costo  = db.Column(db.Float)
-    cantidad = db.Column(db.Float)
+    cantidad = db.Column(db.Integer)
     unidad = db.Column(db.String(50))
     estatus = db.Column(db.Integer)
 
@@ -210,7 +210,7 @@ class Venta(db.Model):
             "estatus": self.estatus
         }
         return json.dumps(venta)
-        
+
 class DetalleVenta(db.Model):
     __tablename__ = "detalle_venta"
     id = db.Column(db.Integer,primary_key=True)

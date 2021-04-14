@@ -108,7 +108,7 @@ def eliminar():
 
 def restarMaterias(idP, cantidadE):
     result = True
-    detalles = DetalleProducto.query.filter(DetalleProducto.producto_id==idP)
+    detalles = DetalleProducto.query.filter(DetalleProducto.producto_id==idP).all()
     for detalle in detalles:
         cantidadT = detalle.cantidad*cantidadE
         materia = MateriaPrima.query.filter_by(id=detalle.materia_id).first()
