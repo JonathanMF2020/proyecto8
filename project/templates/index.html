@@ -1,6 +1,135 @@
-{% extends "base.html" %}
+{% extends "master.html" %}
 
 {% block content %}
-<h1>Hola Mundo!!!</h1>
+<div class="row col-12 justify-content-center p-0 m-0">
+    <div class="row col-12 justify-content-center p-0 m-0">
+        <div id="demo" class="carousel slide" data-ride="carousel">
+
+            <ul class="carousel-indicators">
+                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                <li data-target="#demo" data-slide-to="1"></li>
+                <li data-target="#demo" data-slide-to="2"></li>
+                <li data-target="#demo" data-slide-to="3"></li>
+            </ul>
+            
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="/static/img/5.jpg" alt="Zapato carrusel 1" width="1100" height="550">
+                </div>
+                <div class="carousel-item">
+                    <img src="/static/img/7.jpg" alt="Zapato carrusel 2" width="1100" height="550">
+                </div>
+                <div class="carousel-item">
+                    <img src="/static/img/11.jpg" alt="Zapato carrusel 3" width="1100" height="550">
+                </div>
+                <div class="carousel-item">
+                    <img src="/static/img/9.jpg" alt="Zapato carrusel 4" width="1100" height="550">
+                </div>
+            </div>
+            
+            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#demo" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<div class="row col-12 justify-content-center p-0 m-0">
+    <div class="row col-10 justify-content-center p-0 m-0">
+        <cite class="cite text-center">
+            <h4>Historia</h4>
+            <p>CONTOSO es una empresa fundada en 1985 en León, Guanajuato, México por los señores Mauricio Santos Meza y Alejandro García Mendoza.<br> 
+                    Al inicio, esta empresa únicamente vendía zapatos de mujer, pero a lo largo del tiempo fueron comprando maquinaria 
+                    para ellos fabricar sus propios zapatos, comenzaron fabricando zapatos de mujer hasta 1992 fue cuando se dieron cuenta 
+                    que podrían ser más exitosos en otros mercados como el de hombre. 
+                    Para 1995 se hicieron famosos en su estado y todo el país comenzó a comprarles zapato de hombre, fue tanta la demanda que decidieron solo hacer zapato de hombre y distribuirlos por todo el país 
+                    y de esta manera poco a poco fueron creciendo hasta vender su producto en todo el continente.</p>
+        </cite>
+    </div>
+</div>
+<br>
+<br>
+
+<div class="row col-12 justify-content-center p-0 m-0">
+    <div class="row col-10 justify-content-center p-0 m-0">
+        <div class="row col-4 justify-content-center p-0 m-0">
+            <div class="card" style="width:300px">
+                <div class="card-encabezado">
+                    <img  src="/static/img/mision1.png" alt="Imagen Mision">
+                </div>
+                <div class="card-contenido">
+                    <h4 class="card-title desplazar">Misión</h4>
+                    <p class="card-text desplazar">Nuestra misión es llevar zapatos casuales e innovadores a nuestros proveedores.</p>                
+                </div>
+            </div>
+        </div>
+        <div class="row col-4 justify-content-center p-0 m-0">
+            <div class="card" style="width:300px">
+                <div class="card-encabezado">
+                    <img  src="/static/img/vision2.png" alt="Imagen vision">
+                </div>
+                <div class="card-contenido">
+                    <h4 class="card-title desplazar">Visión</h4>
+                    <p class="card-text desplazar">Nuestra visión es fabricar zapatos de alta calidad con autenticidad e innovación.</p>                
+                </div>
+            </div>
+        </div>
+        <div class="row col-4 justify-content-center p-0 m-0">
+            <div class="card" style="width:300px">
+                <div class="card-encabezado">
+                    <img  src="/static/img/valores.png" alt="Imagen Valores">
+                </div>
+                <div class="card-contenido">
+                    <h4 class="card-title desplazar">Valores</h4>
+                    <p class="card-text desplazar">    
+                        Responsabilidad<br>
+                        Integridad <br>
+                        Colaboración<br>
+                        Innovación<br> 
+                    </p>                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row col-12 justify-content-center p-0 m-0">
+    <div class="row col-6 justify-content-center p-0 m-0">
+        <cite class="cite text-center" >
+        <br>
+        <br>
+        <br>
+        <br>
+            <h4>Nuestros Productos</h4>
+            <p>Nuestra empresa se dedica a fabricar zapatos de vestir para caballero, la mayoría son hechos de piel, 
+                aunque también manejamos sintéticos de diversos colores, pero nos inclinamos a la gama de café y camel, 
+                aunque llevamos años en la industria, cada temporada innovamos nuestro calzado y fabricamos zapato que se 
+                vuelve tendencia.</p>
+        </cite>
+    </div>
+    <div class="row col-4 justify-content-center p-0 m-0">
+        <div id="demo" class="carousel slide" data-ride="carousel">
+
+            <ul class="carousel-indicators">
+                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                <li data-target="#demo" data-slide-to="1"></li>
+            </ul>
+            
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="/static/img/12.jpg" alt="Zapato carrusel 1" width="300" height="300">
+                </div>
+                <div class="carousel-item">
+                    <img src="/static/img/13.png" alt="Zapato carrusel 2" width="300" height="300">
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
 
 {% endblock %}
