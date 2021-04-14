@@ -1,10 +1,12 @@
 from .models import Compra,Proveedor,DetalleCompra,MateriaPrima
 from flask import Blueprint, render_template, request, redirect,url_for, make_response, flash
+from flask_security.decorators import roles_required,login_required,roles_accepted
 from . import db
 
 compras = Blueprint('compras', __name__, url_prefix="/compras")
 
 @compras.route('/')
+@roles_accepted('admin','surtidor')
 def getAll():
     compras = db.session.query(Compra).filter(Compra.estatus == 1).all()
     proveedor = db.session.query(Proveedor).all()

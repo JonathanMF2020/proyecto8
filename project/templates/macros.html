@@ -66,6 +66,17 @@
 
 {% endmacro %}
 
+{% macro header_admin() %}
+
+    <th>Nombre</th>
+    <th>Email</th>
+    <th>Rol</th>
+    <th>Acciones</th>
+
+{% endmacro %}
+
+
+
 {% macro header_ventas() %}
 
     <th>Num. Venta</th>
@@ -171,6 +182,24 @@
 
 {% endmacro %}
 
+{% macro table_admin(users) %}
+
+    {% for user in users %}
+    <tr>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.roles[0].name}}</td>
+        <td>
+            <a onclick='mostrarModalAdminModificar({{user.toJson()|string}})' class="mr-3 btn-small btn-primary btn text-white"><i class="fas fa-pen"></i></a>
+            <a onclick="confirmarAdmin('{{user.id}}','{{user.name}}')" class="btn-small btn-danger btn text-white"><i class="fas fa-trash"></i></a>
+        </td>
+    </tr>
+    {% endfor %}
+
+{% endmacro %}
+
+
+
 {% macro table_compras_detalle(detalles) %}
 
     {% for detalle in detalles %}
@@ -248,6 +277,27 @@
     </div>
     
     
+{% endmacro %}
+
+{% macro form_admin() %}
+    <input id="txtId" name="txtId" type="hidden" value="">
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="slctRol" class="form-control-label form-label">Roles</label>
+        <select name="slctRol" id="slctRol" class="form-control form-element col-12">
+        </select>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtNombre" class="form-control-label form-label">Email</label>
+        <input id="txtNombre" name="txtNombre" type="text" class="form-control form-element col-12" required>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtEmail" class="form-control-label form-label">Nombre</label>
+        <input id="txtEmail" name="txtEmail" type="email" class="form-control form-element col-12" required>
+    </div>
+    <div class="form-group col-12 p-0 mb-2">
+        <label for="txtContrasena" class="form-control-label form-label">Password</label>
+        <input id="txtContrasena" name="txtContrasena" type="password" class="form-control form-element col-12">
+    </div>
 {% endmacro %}
 
 {% macro form_clientes() %}
@@ -370,6 +420,8 @@
                     {{header_compras()}}
                 {% elif type=="compras_detalles" %}
                     {{header_detalles_compras()}}
+                {% elif type=="admin" %}
+                    {{header_admin()}}
                 {% elif type=="ventas" %}
                     {{header_ventas()}}
                 {% endif %}
@@ -388,6 +440,8 @@
                 {{table_compras(objects)}}
             {% elif type=="compras_detalles" %}
                 {{table_compras_detalle(objects)}}
+            {% elif type=="admin" %}
+                {{table_admin(objects)}}
             {% elif type=="ventas" %}
                 {{table_ventas(objects)}}
             {% endif %}
@@ -409,6 +463,8 @@
         {{form_compras(proveedor)}}
     {% elif type=="compras_detalles" %}
         {{form_compras_detalles(materias,ida)}}
+    {% elif type=="admin" %}
+        {{form_admin()}}
     {% elif type=="ventas" %}
         {{form_ventas()}}
     {% endif %}

@@ -15,6 +15,7 @@
         <script src="{{ url_for('static',filename='js/cliente.js') }}"></script>
         <script src="{{ url_for('static',filename='js/productos.js') }}"></script>
         <script src="{{ url_for('static',filename='js/proveedores.js') }}"></script>
+        <script src="{{ url_for('static',filename='js/admin.js') }}"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css"/>
         <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
@@ -28,11 +29,15 @@
         <div class="collapse navbar-collapse" id="navbar_toggler">
             <a class="navbar-brand ml-3" href="#">Contoso</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                {% if(current_user.roles[0].name == "admin")%}
                 <li class="nav-item mr-4">
                     <a class="nav-link" href="/inicio/">Inicio</a>
                 </li>
                 <li class="nav-item mr-4">
                     <a class="nav-link" href="/ventas/">Ventas</a>
+                </li>
+                <li class="nav-item mr-4">
+                    <a class="nav-link" href="{{ url_for('admin.getAll') }}">Admin</a>
                 </li>
                 <li class="nav-item mr-4">
                     <a class="nav-link" href="{{ url_for('compras.getAll') }}">Compras</a>
@@ -52,6 +57,50 @@
                 <li class="nav-item mr-4">
                     <a class="nav-link" href="/security/logout">Cerrar Sesión</a>
                 </li>
+                {%endif%}
+                {% if(current_user.roles[0].name == "almacenista")%}
+                <li class="nav-item mr-4">
+                    <a class="nav-link" href="/inicio/">Inicio</a>
+                </li>
+                <li class="nav-item mr-4">
+                    <a class="nav-link" href="{{ url_for('productos.getAll') }}">Productos</a>
+                </li>
+                <li class="nav-item mr-4">
+                    <a class="nav-link" href="{{ url_for('materias.getAll') }}">Materia Prima</a>
+                </li>
+                <li class="nav-item mr-4">
+                    <a class="nav-link" href="/security/logout">Cerrar Sesión</a>
+                </li>
+                {%endif%}
+                {% if(current_user.roles[0].name == "surtidor")%}
+                <li class="nav-item mr-4">
+                    <a class="nav-link" href="/inicio/">Inicio</a>
+                </li>
+                <li class="nav-item mr-4">
+                    <a class="nav-link" href="{{ url_for('compras.getAll') }}">Compras</a>
+                </li>
+                <li class="nav-item mr-4">
+                    <a class="nav-link" href="{{ url_for('proveedores.getAll') }}">Proveedores</a>
+                </li>
+            
+                <li class="nav-item mr-4">
+                    <a class="nav-link" href="/security/logout">Cerrar Sesión</a>
+                </li>
+                {%endif%}
+                {% if(current_user.roles[0].name == "vendedor")%}
+                <li class="nav-item mr-4">
+                    <a class="nav-link" href="/inicio/">Inicio</a>
+                </li>
+                <li class="nav-item mr-4">
+                    <a class="nav-link" href="/ventas/">Ventas</a>
+                </li>
+                <li class="nav-item mr-4">
+                    <a class="nav-link" href="{{ url_for('clientes.getAll') }}">Clientes</a>
+                </li>
+                <li class="nav-item mr-4">
+                    <a class="nav-link" href="/security/logout">Cerrar Sesión</a>
+                </li>
+                {%endif%}
             </ul>
         </div>
     </nav>

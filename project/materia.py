@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect,url_for, make_response, flash
 from flask_security import login_required, current_user
-from flask_security.decorators import roles_required
+from flask_security.decorators import roles_required,login_required,roles_accepted
 from . import db
 from .models import MateriaPrima
 import json
@@ -10,6 +10,7 @@ import json
 materias = Blueprint('materias', __name__, url_prefix="/materias")
 
 @materias.route('/')
+@roles_accepted('admin','almacenista')
 def getAll():
     materias = db.session.query(MateriaPrima).filter(MateriaPrima.estatus == 1).all()
     return render_template('materia.html', materias=materias)

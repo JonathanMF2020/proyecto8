@@ -23,6 +23,7 @@ def login_users_post():
         flash('El usuario y/o la contraseña son incorrectos')
         current_app.logger.error("El usuario y/o la contraseña son incorrectos")
         return redirect(url_for('auth.login_users')) 
+    login_user(user)
     current_app.logger.debug("Se ha logueado")
     return redirect(url_for('main.base'))
 

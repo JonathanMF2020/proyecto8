@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect,url_for, make_response, flash
 from flask_security import login_required, current_user
-from flask_security.decorators import roles_required
+from flask_security.decorators import roles_required,login_required,roles_accepted
 from . import db
 from .models import Proveedor
 import json
@@ -10,6 +10,7 @@ import json
 proveedores = Blueprint('proveedores', __name__, url_prefix="/proveedores")
 
 @proveedores.route('/', methods=['GET'])
+@roles_accepted('admin','surtidor')
 def getAll():    
     proveedores =  db.session.query(Proveedor).filter(Proveedor.estatus == 1).all()    
     return render_template('proveedores.html', proveedores=proveedores)
