@@ -34,6 +34,7 @@ def guardar():
         prov = Proveedor()
         prov.nombre_empresa = request.form.get('txtNombreEmpresa')
         prov.email = request.form.get('txtEmail')
+        prov.estatus = 1
         prov.telefono = request.form.get('txtTelefono')
         prov.direccion = request.form.get('txtDireccion')
         prov.contacto = request.form.get('txtContacto')

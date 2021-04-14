@@ -10,6 +10,7 @@
         <h3 class="h3 col-12 text-center mb-3 text-black">Compras - Detalle</h3>
         <div class="row col-12 justify-content-center mb-3">
             <a onclick="mostrarModalCompraDetalleAgregar()" class="btn-small btn-rose btn mr-2 text-white"><i class="fas fa-plus mr-2"></i>Agregar</a>
+            <a onclick="terminarCompra({{id}})" class="btn-small btn-rose btn mr-2 text-white"><i class="fas fa-check mr-2"></i>Terminar compra</a>
         </div>
         {{render_table(detalles, "compras_detalles")}}
     </div>

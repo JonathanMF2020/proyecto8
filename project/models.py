@@ -124,6 +124,20 @@ class Compra(db.Model):
     estatus = db.Column(db.Integer)
     proveedor = db.relationship(Proveedor,backref="proveedor")
     
+    def toJson(self):
+        lis = {
+            "id": self.id,
+            "proveedor_id": self.proveedor_id,
+            "precio": self.precio,
+            "fecha_compra": self.fecha_compra,
+            "comentarios": self.comentarios,
+            "estatus": self.estatus,
+            "proveedor": self.proveedor
+        }
+
+
+
+
 class DetalleCompra(db.Model):
     __tablename__ = "detalle_compra"
     id = db.Column(db.Integer,primary_key=True)
