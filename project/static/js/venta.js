@@ -1,7 +1,16 @@
 var clientes = [];
 var productos = [];
+<<<<<<< HEAD
 var detalles = [];
 var venta = new Object;
+=======
+var colores = [];
+var tallas = [];
+var detalles = [];
+var venta = new Object;
+var cantidadZapato = 0;
+var cantidadZapatodOS = 0;
+>>>>>>> Diseño
 
 
 function agregarVenta(){
@@ -63,7 +72,65 @@ function llenarListaClientes2(idr){
         }
     });
     }
+<<<<<<< HEAD
 
+=======
+    function llenarListaTallas(){
+        var pos=$("#lstProductosP").val();
+
+        var producto = JSON.parse(productos[pos]);
+        data={
+            "txtIdP" : producto.id
+        }
+        $.ajax({
+            type: "GET",
+            url: "http://127.0.0.1:5000/ejemplares/getTallas",
+            async: true,
+            data: data,
+            success: function (data) {
+                tallas = JSON.parse(data);
+                var str = "";
+                for(var i = 0; i < tallas.length; i++){
+        
+                    var talla = JSON.parse(tallas[i]);
+                    str+="<option value="+talla+">";
+                    str+= talla;
+                    str+="</option>";
+                }
+                $("#txtTalla").html(str);
+            }
+        });
+        }
+        function llenarListaColores(){
+            var pos=$("#lstProductosP").val();
+            var producto = JSON.parse(productos[pos]);
+            var tal=$("#txtTalla").val();
+
+            
+            data={
+                "txtIdP" : producto.id,
+                "txtTalla" : tal
+            }
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:5000/ejemplares/getColores",
+                async: true,
+                data: data,
+                success: function (data) {
+                    
+                    colores = JSON.parse(data);
+                    var str = "";
+                    for(var i = 0; i < colores.length; i++){
+                        var color = colores[i];
+                        str+="<option value="+color+">";
+                        str+= color;
+                        str+="</option>";
+                    }
+                    $("#lstColores").html(str);
+                }
+            });
+            }
+>>>>>>> Diseño
 function siguienteClientes(){
     var pos = $("#lstCliente").val();
     var fecha = $("#txtFecha").val();
@@ -133,6 +200,7 @@ function agregarProductoVentaP(){
         var color=$("#lstColores").val();
         var precio_unitario=$("#txtPrecio").val();
         var producto = JSON.parse(productos[pos]);
+<<<<<<< HEAD
         var detalle = {
             "producto" : producto,
             "talla" : talla,
@@ -143,6 +211,27 @@ function agregarProductoVentaP(){
         }
         detalles.push(detalle);
         actualizarDetalleProductoVentas(0);
+=======
+        traerCantidad();
+        if(cantidadZapato >= cantidad){
+            var detalle = {
+                "producto" : producto,
+                "talla" : talla,
+                "color" : color,
+                "precio_unitario" : precio_unitario,
+                "cantidad" : cantidad,
+    
+            }
+            detalles.push(detalle);
+            actualizarDetalleProductoVentas(0);
+        } else {
+            Swal.fire({
+                icon: 'error',
+                text: 'Escriba una cantidad menor'
+            })
+        }
+        
+>>>>>>> Diseño
     }
 
     function agregarProductoVentaP2(pos){
@@ -152,6 +241,7 @@ function agregarProductoVentaP(){
         var color=$("#lstColores").val();
         var producto = JSON.parse(productos[poss]);
         var dett =detalles;
+<<<<<<< HEAD
         data={
             "txtProducto" : producto.id,
             "txtPrecioProducto" : producto.precio,
@@ -173,6 +263,39 @@ function agregarProductoVentaP(){
                     actualizarDetalleProductoVentas(1);
                 }
         });
+=======
+        traerCantidad();
+        if(cantidadZapato >= cantidad){
+            data={
+                "txtProducto" : producto.id,
+                "txtPrecioProducto" : producto.precio,
+                "txtTalla" : talla,
+                "txtColor" : color,
+                "txtCantidad" : cantidad,
+                "txtIdVenta" : venta.id,
+                "txtIdProducto" : producto.id,
+            }
+            $.ajax({
+                    type: "POST",
+                    url: "http://127.0.0.1:5000/ventas/agregar_detalle",
+                    async: true,
+                    data:data,
+                    success: function (data) {
+                        var json_data = JSON.parse(data);
+                        detalle.id = json_data.result;
+                        detalles.push(detalle);
+                        actualizarDetalleProductoVentas(1);
+                    }
+            });
+        } else{
+            Swal.fire({
+                icon: 'error',
+                text: 'Escriba una cantidad menor'
+            })
+        }
+
+        
+>>>>>>> Diseño
     }
 
     function actualizarDetalleProductoVentas(des){
@@ -208,9 +331,40 @@ function eliminarProductoVentaP2(pos){
                 }
         });
     }
+<<<<<<< HEAD
 
     function insertarVenta(){
 
+=======
+    function traerCantidad(){
+        var pos=$("#lstProductosP").val();
+        var producto = JSON.parse(productos[pos]);
+        var tal=$("#txtTalla").val();
+        var cant=$("#lstColores").val();
+
+        data={
+            "txtIdP" : producto.id,
+            "txtTalla" : tal,
+            "txtColor" :cant,
+        }
+        $.ajax({
+            type: "GET",
+            url: "http://127.0.0.1:5000/ejemplares/getCantidad",
+            async: true,
+            data: data,
+            success: function (data) {
+                var json_data = JSON.parse(data);
+                cantidadZapato = json_data.result;
+            }
+        });
+    }
+
+    function insertarVenta(){
+
+      
+
+
+>>>>>>> Diseño
         data={
             "txtId" : "",
             "txtClienteI" : venta.idC,

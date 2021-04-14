@@ -93,10 +93,13 @@ class Compra(db.Model):
     comentarios = db.Column(db.String(50))
     estatus = db.Column(db.Integer)
     proveedor = db.relationship(Proveedor,backref="proveedor")
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> Diseño
 class DetalleCompra(db.Model):
     __tablename__ = "detalle_compra"
     id = db.Column(db.Integer,primary_key=True)
@@ -145,6 +148,28 @@ class DetalleProducto(db.Model):
             "cantidad": self.cantidad
         }
         return json.dumps(prode)
+<<<<<<< HEAD
+=======
+
+class Ejemplar(db.Model):
+    __tablename__ = "ejemplar"
+    id = db.Column(db.Integer,primary_key=True)
+    producto_id = db.Column(db.Integer(),db.ForeignKey('productos.id'))
+    producto = db.relationship(Producto, backref="ejemplar")
+    talla = db.Column(db.Float)
+    color = db.Column(db.String(50))
+    cantidad = db.Column(db.Integer)
+
+    def toJson(self):
+        dictEjemplar = {
+            "id": self.id,
+            "producto_id": self.producto_id,
+            "talla": self.talla,
+            "color": self.color,
+            "cantidad": self.cantidad
+        }
+        return dictEjemplar
+>>>>>>> Diseño
 class Venta(db.Model):
     __tablename__ = "venta"
     id = db.Column(db.Integer,primary_key=True)
@@ -171,6 +196,7 @@ class DetalleVenta(db.Model):
     venta = db.relationship(Venta,backref="ventas")
     producto_id = db.Column(db.Integer(),db.ForeignKey('productos.id'))
     producto = db.relationship(Producto,backref="productos")
+<<<<<<< HEAD
     talla = db.Column(db.Integer)
     color = db.Column(db.String(200))
     cantidad = db.Column(db.Integer)
@@ -196,6 +222,12 @@ class Ejemplar(db.Model):
     talla = db.Column(db.Integer)
     color = db.Column(db.String(200))
     precio_unitario = db.Column(db.Float)
+=======
+    talla = db.Column(db.Float)
+    color = db.Column(db.String(200))
+    cantidad = db.Column(db.Integer)
+    precio_unitario = db.Column(db.Float)
+>>>>>>> Diseño
     def toJson(self):
         ejemplar = {
             "id": self.id,
@@ -206,6 +238,7 @@ class Ejemplar(db.Model):
             "cantidad": self.cantidad,
             "precio_unitario": self.precio_unitario
         }
+<<<<<<< HEAD
         return json.dumps(ejemplar)
 
 
@@ -215,3 +248,6 @@ class Ejemplar(db.Model):
     
 
 
+=======
+        return json.dumps(detalleVenta)
+>>>>>>> Diseño

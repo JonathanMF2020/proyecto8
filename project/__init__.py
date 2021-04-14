@@ -12,7 +12,11 @@ def create_app():
     
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SECRET_KEY'] = os.urandom(24)
+<<<<<<< HEAD
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@127.0.0.1/proyecto8'
+=======
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@127.0.0.1/proyecto8'
+>>>>>>> Diseño
     app.logger.debug("Conecto a la base de datos")
     app.config['SECURITY_PASSWORD_SALT'] = 'thissecretssalt'
 
@@ -35,6 +39,11 @@ def create_app():
     app.register_blueprint(cliente_blueprint)
     from .producto import productos as productos_blueprint
     app.register_blueprint(productos_blueprint)
+<<<<<<< HEAD
+=======
+    from .ejemplar import ejem as ejemplares_blueprint
+    app.register_blueprint(ejemplares_blueprint)
+>>>>>>> Diseño
     from .ventas import ventas as ventas_blueprint
     app.register_blueprint(ventas_blueprint)
     app.logger.debug("Inicio la aplicacion")
