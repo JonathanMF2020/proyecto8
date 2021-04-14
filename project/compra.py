@@ -7,7 +7,7 @@ compras = Blueprint('compras', __name__, url_prefix="/compras")
 @compras.route('/')
 def getAll():
     compras = db.session.query(Compra).filter(Compra.estatus == 1).all()
-    proveedor = db.session.query(Proveedor).all()
+    proveedor = db.session.query(Proveedor).filter(Proveedor.estatus == 1).all()
     return render_template('compras/compras.html', compras=compras,proveedor=proveedor)
 
 #Agregar/Modificar
@@ -26,6 +26,7 @@ def guardar():
         precio = request.form.get("txtPrecio")
         comentario = request.form.get("txtComentario")
         proveedor = request.form.get("slctProveedor")
+        print("id prove: -------"+proveedor)
         compra = Compra(proveedor_id=proveedor,precio=precio,comentarios=comentario,estatus=1)
         db.session.add(compra)
         db.session.commit()
@@ -62,14 +63,26 @@ def verguardar():
     id = request.args.get('id')
     return render_template('compras/ver.html',detalles=detalles,materias=materias,id=id)
 
+
+@compras.route('/eliminarDetalle', methods=["POST"])
+def eliminarDetalle():
+    id = int(request.form.get("txtId"))
+    detalle = db.session.query(DetalleCompra).filter(DetalleCompra.id == id).first()
+    db.session.delete(detalle)    
+    db.session.commit()
+    flash("Detalle eliminado exitosamente", "success")
+    return redirect(url_for('compras.getAll'))
+
     
 @compras.route('/eliminar', methods=["POST"])
 def eliminar():
     id = int(request.form.get("txtId"))
-    compra = db.session.query(Compra).filter(Compra.id == id).first
+    compra = db.session.query(Compra).filter(Compra.id == id).first()
     compra.estatus = 0
-    detalle = db.session.query(DetalleCompra).filter(DetalleCompra.compra_id == compra.id)
-    db.session.delete(detalle)
+    detalle = db.session.query(DetalleCompra).filter(DetalleCompra.compra_id == compra.id).all()
+    for det in detalle:
+        db.session.delete(det)
+    db.session.add(compra)
     db.session.commit()
     return redirect(url_for('compras.getAll'))
     

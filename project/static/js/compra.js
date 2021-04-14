@@ -13,7 +13,7 @@ function mostrarModalCompraModificar(compra){
     $("#modalCompra").modal("show");
     $("#txtId").val(compra.id);
     $("#txtPrecio").val(compra.precio);
-    $("#txtComentario").val(compra.comentarios)
+    $("#txtComentario").val(compra.comentarios);
     $("#slcProveedor").val(compra.proveedor);
     $("#modalCompraLabel").html("Modificar Compra");
 }
@@ -24,6 +24,53 @@ function mostrarModalCompraDetalleModificar(){
     $("#modalCompraLabel").html("Modificar Detalle Compra");
 }
 
+function confirmarDetalle(id, nombre){
+    Swal.fire({
+        icon: 'question',
+        title: '¿Esta seguro que quiere eliminar la Compra del material: '+nombre+"?",
+        showDenyButton: true,
+        confirmButtonText: `Cancelar`,
+        denyButtonText: `Eliminar`,
+      }).then((result) => {
+        if (result.isDenied) {
+            eliminarDetalle(id);
+        }
+      })
+}
+
+function eliminarDetalle(id){
+    args = {
+        txtId: id
+    }
+    $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1:5000/compras/eliminarDetalle",
+            async: true,
+            data: args,
+            success: function (data) {
+                json_data = JSON.parse(data);
+                if(json_data.result=="OK"){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Detalle eliminado correctamente',
+                        showDenyButton: false,
+                        confirmButtonText: `Ok`
+                      }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.replace("http://127.0.0.1:5000/compras/");
+                        }
+                      })
+                }
+                else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Algo salió mal...',
+                        text: 'Intentelo de nuevo más tarde'
+                    })
+                }
+            }
+    });
+}
 
 function confirmarCompra(id, nombre){
     Swal.fire({
@@ -53,7 +100,7 @@ function eliminarCompra(id){
                 if(json_data.result=="OK"){
                     Swal.fire({
                         icon: 'success',
-                        title: 'Proveedor eliminado correctamente',
+                        title: 'Compra eliminada correctamente',
                         showDenyButton: false,
                         confirmButtonText: `Ok`
                       }).then((result) => {
