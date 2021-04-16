@@ -64,8 +64,7 @@ def verguardar():
     flash("Detalle de compra agregada exitosamente", "success")
     detalles = db.session.query(DetalleCompra).all()
     materias = db.session.query(MateriaPrima).all()
-    id = request.args.get('id')
-    return render_template('compras/ver.html',detalles=detalles,materias=materias,id=id)
+    return redirect(url_for('compras.ver',id=id))
 
 
 @compras.route('/eliminarDetalle', methods=["POST"])
