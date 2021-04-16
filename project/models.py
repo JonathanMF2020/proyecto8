@@ -1,5 +1,5 @@
 from . import db
-from flask_sqlalchemy import SQLAlchemy
+#from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 from flask_security import UserMixin,RoleMixin
 import datetime
@@ -134,6 +134,7 @@ class Compra(db.Model):
             "estatus": self.estatus,
             "proveedor": self.proveedor
         }
+        return json.dumps(lis)
 
 
 

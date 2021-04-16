@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
-from flask_security import current_user
-from flask_security.decorators import roles_required,login_required,roles_accepted
-from . import db
+#from flask_security import current_user
+from flask_security.decorators import roles_accepted
+#from . import db
 
 
 main = Blueprint('main',__name__)
