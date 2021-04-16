@@ -90,6 +90,7 @@ function llenarListaClientes2(idr){
                     str+="</option>";
                 }
                 $("#txtTalla").html(str);
+                llenarListaColores();
             }
         });
         }
@@ -176,6 +177,7 @@ function llenarListaProductosVenta(){
                 str+="</option>";
             }
             $("#lstProductosP").html(str);
+            llenarListaTallas();
         }
     });
     }
