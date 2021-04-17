@@ -22,14 +22,14 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css"/>
         <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
         <script src="{{ url_for('static',filename='js/tabla.js') }}"></script>
-        <title>Costoso</title>
+        <title>Fusion Solution</title>
     </head>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top p-3" style="background-color: #0f5398;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_toggler" aria-controls="navbar_toggler" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbar_toggler">
-            <a class="navbar-brand ml-3" href="#">Contoso</a>
+            <a class="navbar-brand ml-3" href="#">Fusion Solution</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 {% if(current_user.roles[0].name == "admin")%}
                 <li class="nav-item mr-4">

@@ -1,3 +1,4 @@
+var ip = "http://e23f8d156612.ngrok.io"
 function mostrarModalCompraAgregar(){
     $("#modalCompra").modal("show");
     $("#txtId").val("");
@@ -44,7 +45,7 @@ function eliminarDetalle(id){
     }
     $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:5000/compras/eliminarDetalle",
+            url: ip+"/compras/eliminarDetalle",
             async: true,
             data: args,
             success: function (data) {
@@ -57,7 +58,7 @@ function eliminarDetalle(id){
                         confirmButtonText: `Ok`
                       }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.replace("http://127.0.0.1:5000/compras/");
+                            window.location.replace(ip+"/compras/");
                         }
                       })
                 }
@@ -92,7 +93,7 @@ function eliminarCompra(id){
     }
     $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:5000/compras/eliminar",
+            url: ip+"/compras/eliminar",
             async: true,
             data: args,
             success: function (data) {
@@ -105,7 +106,7 @@ function eliminarCompra(id){
                         confirmButtonText: `Ok`
                       }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.replace("http://127.0.0.1:5000/compras/");
+                            window.location.replace(ip+"/compras/");
                         }
                       })
                 }
@@ -140,7 +141,7 @@ function terminarCompraPaso2(id){
     }
     $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:5000/compras/terminar",
+            url: ip+"/compras/terminar",
             async: true,
             data: args,
             success: function (data) {
@@ -153,7 +154,7 @@ function terminarCompraPaso2(id){
                         confirmButtonText: `Ok`
                       }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.replace("http://127.0.0.1:5000/compras/");
+                            window.location.replace(ip+"/compras/");
                         }
                       })
                 }

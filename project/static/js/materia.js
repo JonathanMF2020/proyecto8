@@ -1,3 +1,4 @@
+var ip = "http://e23f8d156612.ngrok.io"
 function mostrarModalMateriaAgregar(){
     $("#modalMateria").modal("show");
     $("#txtNombre").val("");
@@ -39,7 +40,7 @@ function eliminarMateria(id){
     }
     $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:5000/materias/eliminar",
+            url: ip+"/materias/eliminar",
             async: true,
             data: args,
             success: function (data) {
@@ -52,7 +53,7 @@ function eliminarMateria(id){
                         confirmButtonText: `Ok`
                       }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.replace("http://127.0.0.1:5000/materias/");
+                            window.location.replace(ip+"/materias/");
                         }
                       })
                 }

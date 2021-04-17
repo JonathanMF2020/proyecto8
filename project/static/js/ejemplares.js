@@ -1,3 +1,4 @@
+var ip = "http://e23f8d156612.ngrok.io"
 var productos = [];
 var queryString = window.location.search;
 var urlParams = new URLSearchParams(queryString);
@@ -43,7 +44,7 @@ function eliminarEjemplar(id){
     }
     $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:5000/ejemplares/eliminar",
+            url: ip+"/ejemplares/eliminar",
             async: true,
             data:data,
             success: function (data) {
@@ -56,7 +57,7 @@ function eliminarEjemplar(id){
                         confirmButtonText: `Ok`
                       }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.replace("http://127.0.0.1:5000/ejemplares/getByProducto?txtIdP="+json_data.result);
+                            window.location.replace(ip+"/ejemplares/getByProducto?txtIdP="+json_data.result);
                         }
                       })
                 }

@@ -1,3 +1,4 @@
+var ip = "http://e23f8d156612.ngrok.io"
 function mostrarModalAdminAgregar(){
     llenarListaRoles();
     $("#modalAdmin").modal("show");
@@ -24,7 +25,7 @@ function llenarListaRoles(){
     var roles = [];
     $.ajax({
             type: "GET",
-            url: "http://127.0.0.1:5000/admin/getRoles",
+            url: ip+"/admin/getRoles",
             async: true,
             success: function (data) {
                 roles = JSON.parse(data);
@@ -43,7 +44,7 @@ function llenarListaRoles2(id){
     var roles = [];
     $.ajax({
             type: "GET",
-            url: "http://127.0.0.1:5000/admin/getRoles",
+            url: ip+"/admin/getRoles",
             async: true,
             success: function (data) {
                 roles = JSON.parse(data);
@@ -87,7 +88,7 @@ function eliminarAdmin(id){
     };
     $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:5000/admin/eliminar",
+            url: ip+"/admin/eliminar",
             async: true,
             data: args,
             success: function (data) {
@@ -101,7 +102,7 @@ function eliminarAdmin(id){
                         confirmButtonText: `Ok`
                       }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.replace("http://127.0.0.1:5000/admin/");
+                            window.location.replace(ip+"/admin/");
                         }
                       })
                 }

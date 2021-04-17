@@ -1,3 +1,4 @@
+var ip = "http://e23f8d156612.ngrok.io"
 var clientes = [];
 var productos = [];
 var colores = [];
@@ -23,7 +24,7 @@ function agregarVenta(){
 function llenarListaClientes(){
 $.ajax({
     type: "GET",
-    url: "http://127.0.0.1:5000/clientes/getAll",
+    url: ip+"/clientes/getAll",
     async: true,
     success: function (data) {
         clientes = JSON.parse(data);
@@ -43,7 +44,7 @@ $.ajax({
 function llenarListaClientes2(idr){
     $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:5000/clientes/getAll",
+        url: ip+"/clientes/getAll",
         async: true,
         success: function (data) {
             clientes = JSON.parse(data);
@@ -76,7 +77,7 @@ function llenarListaClientes2(idr){
         }
         $.ajax({
             type: "GET",
-            url: "http://127.0.0.1:5000/ejemplares/getTallas",
+            url: ip+"/ejemplares/getTallas",
             async: true,
             data: data,
             success: function (data) {
@@ -106,7 +107,7 @@ function llenarListaClientes2(idr){
             }
             $.ajax({
                 type: "GET",
-                url: "http://127.0.0.1:5000/ejemplares/getColores",
+                url: ip+"/ejemplares/getColores",
                 async: true,
                 data: data,
                 success: function (data) {
@@ -165,7 +166,7 @@ function mostrarModalVentas2(){
 function llenarListaProductosVenta(){
     $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:5000/productos/getAll",
+        url: ip+"/productos/getAll",
         async: true,
         success: function (data) {
             productos = JSON.parse(data);
@@ -234,7 +235,7 @@ function agregarProductoVentaP(){
             }
             $.ajax({
                     type: "POST",
-                    url: "http://127.0.0.1:5000/ventas/agregar_detalle",
+                    url: ip+"/ventas/agregar_detalle",
                     async: true,
                     data:data,
                     success: function (data) {
@@ -278,7 +279,7 @@ function eliminarProductoVentaP2(pos){
         }
         $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:5000/ventas/eliminar_detalle",
+                url: ip+"/ventas/eliminar_detalle",
                 async: true,
                 data:data,
                 success: function (data) {
@@ -300,7 +301,7 @@ function eliminarProductoVentaP2(pos){
         }
         $.ajax({
             type: "GET",
-            url: "http://127.0.0.1:5000/ejemplares/getCantidad",
+            url: ip+"/ejemplares/getCantidad",
             async: true,
             data: data,
             success: function (data) {
@@ -324,7 +325,7 @@ function eliminarProductoVentaP2(pos){
         }
         $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:5000/ventas/guardar",
+                url: ip+"/ventas/guardar",
                 async: true,
                 data:data,
                 success: function (data) {
@@ -337,7 +338,7 @@ function eliminarProductoVentaP2(pos){
                             confirmButtonText: `Ok`
                           }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.replace("http://127.0.0.1:5000/ventas/");
+                                window.location.replace(ip+"/ventas/");
                             }
                           })
                     }
@@ -357,7 +358,7 @@ function eliminarProductoVentaP2(pos){
     }
     function guardarVenta2(){
         $("#modalVentas2").modal("hide");
-        window.location.replace("http://127.0.0.1:5000/ventas/");
+        window.location.replace(ip+"/ventas/");
     }
     function modificarVentas(vent){
         venta = vent;
@@ -392,7 +393,7 @@ function eliminarProductoVentaP2(pos){
         }
         $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1:5000/ventas/eliminar",
+                url: ip+"/ventas/eliminar",
                 async: true,
                 data:data,
                 success: function (data) {
@@ -405,7 +406,7 @@ function eliminarProductoVentaP2(pos){
                             confirmButtonText: `Ok`
                           }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.replace("http://127.0.0.1:5000/ventas/");
+                                window.location.replace(ip+"/ventas/");
                             }
                           })
                     }
@@ -432,7 +433,7 @@ function editarVenta(){
     }
     $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:5000/ventas/guardar",
+            url: ip+"/ventas/guardar",
             async: true,
             data:data,
             success: function (data) {
@@ -456,7 +457,7 @@ function siguienteVentas2(){
     }
     $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:5000/ventas/getDetalles",
+        url: ip+"/ventas/getDetalles",
         data : data,
         async: true,
         success: function (data) {
@@ -467,7 +468,7 @@ function siguienteVentas2(){
 }
 function guardarProducto2(){
     $("#modalVenta2").modal("hide");
-    window.location.replace("http://127.0.0.1:5000/productos/");
+    window.location.replace(ip+"/productos/");
 }
 function mostrarModalVemtas3(){
     $("#modalVentas").modal("hide");

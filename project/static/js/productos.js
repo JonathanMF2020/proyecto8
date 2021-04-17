@@ -1,3 +1,4 @@
+var ip = "http://e23f8d156612.ngrok.io"
 var materias = [];
 var detalles = [];
 var producto = new Object;
@@ -42,7 +43,7 @@ function siguienteProductos2(){
     }
     $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:5000/productos/getDetalles",
+        url: ip+"/productos/getDetalles",
         data : data,
         async: true,
         success: function (data) {
@@ -117,13 +118,13 @@ function guardarProducto(){
 
 function guardarProducto2(){
     $("#modalProductos2").modal("hide");
-    window.location.replace("http://127.0.0.1:5000/productos/");
+    window.location.replace(ip+"/productos/");
 }
 
 function llenarListaMateria(){
     $.ajax({
             type: "GET",
-            url: "http://127.0.0.1:5000/materias/getAll",
+            url: ip+"/materias/getAll",
             async: true,
             success: function (data) {
                 materias = JSON.parse(data);
@@ -149,7 +150,7 @@ function insertarProducto(){
     }
     $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:5000/productos/guardar",
+            url: ip+"/productos/guardar",
             async: true,
             data:data,
             success: function (data) {
@@ -162,7 +163,7 @@ function insertarProducto(){
                         confirmButtonText: `Ok`
                       }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.replace("http://127.0.0.1:5000/productos/");
+                            window.location.replace(ip+"/productos/");
                         }
                       })
                 }
@@ -189,7 +190,7 @@ function editarProducto(){
     }
     $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:5000/productos/guardar",
+            url: ip+"/productos/guardar",
             async: true,
             data:data,
             success: function (data) {
@@ -229,7 +230,7 @@ function eliminarProducto(id){
     }
     $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:5000/productos/eliminar",
+            url: ip+"/productos/eliminar",
             async: true,
             data:data,
             success: function (data) {
@@ -242,7 +243,7 @@ function eliminarProducto(id){
                         confirmButtonText: `Ok`
                       }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.replace("http://127.0.0.1:5000/productos/");
+                            window.location.replace(ip+"/productos/");
                         }
                       })
                 }
@@ -290,7 +291,7 @@ function agregarMateriaP2(pos){
     }
     $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:5000/productos/agregar_detalle",
+            url: ip+"/productos/agregar_detalle",
             async: true,
             data:data,
             success: function (data) {
@@ -309,7 +310,7 @@ function eliminarMateriaP2(pos){
     }
     $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:5000/productos/eliminar_detalle",
+            url: ip+"/productos/eliminar_detalle",
             async: true,
             data:data,
             success: function (data) {

@@ -1,3 +1,4 @@
+var ip = "http://e23f8d156612.ngrok.io"
 function mostrarModalClienteAgregar(){
     $("#modalClientes").modal("show");
     $("#txtNombreEmpresa").val("");
@@ -56,7 +57,7 @@ function eliminarCliente(id){
     }
     $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:5000/clientes/eliminar",
+            url: ip+"/clientes/eliminar",
             async: true,
             data: args,
             success: function (data) {
@@ -69,7 +70,7 @@ function eliminarCliente(id){
                         confirmButtonText: `Ok`
                       }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.replace("http://127.0.0.1:5000/clientes/");
+                            window.location.replace(ip+"/clientes/");
                         }
                       })
                 }

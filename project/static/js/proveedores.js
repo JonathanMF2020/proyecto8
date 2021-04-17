@@ -1,3 +1,4 @@
+var ip = "http://e23f8d156612.ngrok.io"
 function mostrarModalProveedorAgregar(){
     $("#modalProveedor").modal("show");
     $("#txtNombreEmpresa").val("");
@@ -43,7 +44,7 @@ function eliminarProveedor(id){
     }
     $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:5000/proveedores/eliminar",
+            url: ip+"/proveedores/eliminar",
             async: true,
             data: args,
             success: function (data) {
@@ -56,7 +57,7 @@ function eliminarProveedor(id){
                         confirmButtonText: `Ok`
                       }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.replace("http://127.0.0.1:5000/proveedores/");
+                            window.location.replace(ip+"/proveedores/");
                         }
                       })
                 }
