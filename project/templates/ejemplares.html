@@ -4,11 +4,12 @@
 {% from "macros.html" import render_form %}
 
 {% block content %}
+<a class="btn btn-secondary" title="Volver a productos" href="/productos">Volver a productos</a>
 <div class="row col-12 justify-content-center p-0 m-0">
     <div class="row col-10 justify-content-center p-0 m-0">
-        <h3 class="h3 col-12 text-center mb-3 text-black">{{producto}}</h3>
-        <div class="row col-12 justify-content-center mb-3">
-            <a onclick="agregarEjemplar()" class="btn-small btn-rose btn mr-2 text-white"><i class="fas fa-plus mr-2"></i>Agregar</a>
+        <h3 class="h3 col-12 text-center text-black">{{producto}}</h3>
+        <div class="row col-12 justify-content-left mb-3">
+            <a onclick="agregarEjemplar()" title="Agregar" class="btn-small btn-rose btn text-white"><i class="fas fa-plus"></i></a>
         </div>
         {{render_table(ejemplares, "ejemplares")}}
     </div>

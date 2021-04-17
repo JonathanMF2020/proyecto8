@@ -22,7 +22,11 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.css"/>
         <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/datatables.min.js"></script>
         <script src="{{ url_for('static',filename='js/tabla.js') }}"></script>
+<<<<<<< HEAD
         <title>Fusion Solution</title>
+=======
+        <title>Contoso</title>
+>>>>>>> origin/diseño_actualizado
     </head>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top p-3" style="background-color: #0f5398;">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_toggler" aria-controls="navbar_toggler" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,9 +86,11 @@
                     <a class="nav-link" href="{{ url_for('compras.getAll') }}">Compras</a>
                 </li>
                 <li class="nav-item mr-4">
+                    <a class="nav-link" href="{{ url_for('materias.getAll') }}">Materia Prima</a>
+                </li>
+                <li class="nav-item mr-4">
                     <a class="nav-link" href="{{ url_for('proveedores.getAll') }}">Proveedores</a>
                 </li>
-            
                 <li class="nav-item mr-4">
                     <a class="nav-link" href="/security/logout">Cerrar Sesión</a>
                 </li>

@@ -6,9 +6,9 @@
 {% block content %}
 <div class="row col-12 justify-content-center p-0 m-0">
     <div class="row col-10 justify-content-center p-0 m-0">
-        <h3 class="h3 col-12 text-center mb-3 text-black">Ventas</h3>
-        <div class="row col-12 justify-content-center mb-3">
-            <a onclick="agregarVenta()" class="btn-small btn-rose btn mr-2 text-white"><i class="fas fa-plus mr-2"></i>Agregar</a>
+        <h3 class="h3 col-12 text-center text-black">Ventas</h3>
+        <div class="row col-12 justify-content-left mb-3">
+            <a onclick="agregarVenta()" title="Agregar" class="btn-small btn-rose btn text-white"><i class="fas fa-plus"></i></a>
         </div>
         {{render_table(ventas, "ventas")}}
     </div>
@@ -46,7 +46,7 @@
           </button>
         </div>
           <div class="col-12 mb-0">
-            <div class="modal-body">
+            <div class="modal-body" style="overflow: scroll; height: 30em;">
             <div class="form-group col-12 p-0 mb-2">
                 <label for="lstProductosP" class="form-control-label form-label">Productos</label>
                 <select id="lstProductosP" name="lstProductosP" class="form-control form-element col-12" onchange="llenarListaTallas()" >
@@ -54,7 +54,7 @@
             </div>
             <div class="form-group col-12 p-0 mb-2">
               <div class="form-group col-12 p-0 mb-2">
-                <label for="txtTalla" class="form-control-label form-label">Productos</label>
+                <label for="txtTalla" class="form-control-label form-label">Talla</label>
                 <select id="txtTalla" name="txtTalla" class="form-control form-element col-12" onchange="llenarListaColores()" >
                 </select>
               </div>
@@ -66,32 +66,74 @@
             </div>
             <div class="form-group col-12 p-0 mb-2">
               <label for="txtCantidadV" class="form-control-label form-label">Cantidad</label>
-              <input id="txtCantidadV" name="txtCantidadV" type="number" class="form-control form-element col-12" required>
+              <input id="txtCantidadV" min="1" name="txtCantidadV" type="number" class="form-control form-element col-12" required>
             </div>
             <div class="form-group col-12 p-0">
               <button id="btnAgregarVentasP" onclick="agregarProductoVentaP()" class="btn btn-outline-primary col-12">Agregar</button>
               <button id="btnAgregarVentasP2" onclick="agregarProductoVentaP2()" class="btn btn-outline-primary col-12">Agregar</button>
+            </div>
+            <div class="table-resposive col-12">
+                <table class="table table-striped">
+                    <thead class="text-white" style="background-color: #73787E;">
+                        <tr>
+                            <th>Producto</th>
+                            <th>Talla</th>
+                            <th>Color</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblDetalleVenta" class="text-black">
+            
+                    </tbody>
+                </table>
+            </div>
           </div>
-          </div>
-          <div class="table-resposive col-12">
-              <table class="table table-striped">
-                  <thead class="text-white" style="background-color: #DB7B7B;">
-                      <tr>
-                          <th>Producto</th>
-                          <th>Cantidad</th>
-                          <th></th>
-                      </tr>
-                  </thead>
-                  <tbody id="tblDetalleVenta" class="text-black">
           
-                  </tbody>
-              </table>
-          </div>
         </div>
         <div class="modal-footer">
           <button id="btnGuardarVenta" onclick="guardarVenta()" class="btn btn-success">Guardar</button>
           <button id="btnGuardarVenta2" onclick="guardarVenta2()" class="btn btn-success">Guardar</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalVentas3" tabindex="-1" role="dialog" aria-labelledby="modalVentasLabel3" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalVentasLabel3">Detalle de venta</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+          <div class="col-12 mb-0">
+            <div class="modal-body" style="overflow: scroll; height: 20em;">
+            <h4 id="txtPrecioTotal" class="h4 col-12 text-left mb-2" style="color: #205c97;"></h4>
+            <div class="table-resposive col-12">
+                <table class="table table-striped">
+                    <thead class="text-white" style="background-color: #73787E;">
+                        <tr>
+                            <th>Producto</th>
+                            <th>Talla</th>
+                            <th>Color</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblDetalleVenta2" class="text-black">
+            
+                    </tbody>
+                </table>
+            </div>
+          </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>

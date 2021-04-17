@@ -10,7 +10,7 @@ import json
 materias = Blueprint('materias', __name__, url_prefix="/materias")
 
 @materias.route('/')
-@roles_accepted('admin','almacenista')
+@roles_accepted('admin','almacenista','surtidor')
 def getAll():
     materias = db.session.query(MateriaPrima).filter(MateriaPrima.estatus == 1).all()
     return render_template('materia.html', materias=materias)

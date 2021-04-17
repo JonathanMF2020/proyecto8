@@ -8,7 +8,6 @@ function agregarProducto(){
     $("#modalProductosLabel").html("Agregar Producto");
     $("#txtNombre").val("");
     $("#txtPrecio").val(0);
-    $("#txtCantidad").val(0);
     $("#txtDescripcion").val("");
     $("#btnSiguiente1").removeAttr("hidden");
     $("#btnSiguiente2").prop("hidden", "true");
@@ -269,7 +268,6 @@ function modificarProducto(prod){
     $("#modalProductosLabel").html("Modificar Producto");
     $("#txtNombre").val(producto.nombre);
     $("#txtPrecio").val(producto.precio);
-    $("#txtCantidad").val(producto.cantidad);
     $("#txtDescripcion").val(producto.descripcion);
     $("#btnSiguiente2").removeAttr("hidden");
     $("#btnSiguiente1").prop("hidden", "true");
