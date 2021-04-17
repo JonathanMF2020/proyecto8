@@ -3,14 +3,14 @@
 {% from "macros.html" import render_form %}
 
 {% block content %}
-<a class="btn btn-secondary" href="/compras">Volver a compras</a>
+<a class="btn btn-secondary" title="Volver a compras" href="/compras">Volver a compras</a>
 <div class="row col-12 justify-content-center p-0 m-0">
     
     <div class="row col-10 justify-content-center p-0 m-0">
-        <h3 class="h3 col-12 text-center mb-3 text-black">Compras - Detalle</h3>
-        <div class="row col-12 justify-content-center mb-3">
-            <a onclick="mostrarModalCompraDetalleAgregar()" class="btn-small btn-rose btn mr-2 text-white"><i class="fas fa-plus mr-2"></i>Agregar</a>
-            <a onclick="terminarCompra({{id}})" class="btn-small btn-rose btn mr-2 text-white"><i class="fas fa-check mr-2"></i>Terminar compra</a>
+        <h3 class="h3 col-12 text-center text-black">Compras - Detalle</h3>
+        <div class="row col-12 justify-content-left mb-3">
+            <a onclick="mostrarModalCompraDetalleAgregar()" class="btn-small mr-3 btn-rose btn text-white"><i class="fas fa-plus"></i></a>
+            <a onclick="terminarCompra({{id}})" class="btn-small btn-rose btn text-white"><i class="fas fa-check"></i></a>
         </div>
         {{render_table(detalles, "compras_detalles")}}
     </div>

@@ -45,7 +45,7 @@
           </button>
         </div>
           <div class="col-12 mb-0">
-            <div class="modal-body">
+            <div class="modal-body" style="overflow: scroll; height: 25em;">
               <div class="form-group col-12 p-0 mb-2">
                 <label for="lstMateriaP" class="form-control-label form-label">Materia Prima</label>
                 <select id="lstMateriaP" name="lstMateriaP" class="form-control form-element col-12" required>
@@ -59,21 +59,22 @@
                 <button id="btnAgregarMateriaP" onclick="agregarMateriaP()" class="btn btn-outline-primary col-12">Agregar</button>
                 <button id="btnAgregarMateriaP2" onclick="agregarMateriaP2()" class="btn btn-outline-primary col-12">Agregar</button>
             </div>
+            <div class="table-resposive col-12">
+                <table class="table table-striped">
+                    <thead class="text-white" style="background-color: #73787E;">
+                        <tr>
+                            <th>Materia Prima</th>
+                            <th>Cantidad</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tblDetalleProducto" class="text-black">
+            
+                    </tbody>
+                </table>
+            </div>
           </div>
-          <div class="table-resposive col-12">
-              <table class="table table-striped">
-                  <thead class="text-white" style="background-color: #DB7B7B;">
-                      <tr>
-                          <th>Materia Prima</th>
-                          <th>Cantidad</th>
-                          <th></th>
-                      </tr>
-                  </thead>
-                  <tbody id="tblDetalleProducto" class="text-black">
           
-                  </tbody>
-              </table>
-          </div>
         </div>
         <div class="modal-footer">
           <button id="btnGuardarProducto" onclick="guardarProducto()" class="btn btn-success">Guardar</button>

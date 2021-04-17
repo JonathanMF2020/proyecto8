@@ -13,7 +13,7 @@ function agregarVenta(){
     $("#modalVentas").modal("show");
     $("#modalVentasLabel").html("Agregar Venta");
     $("#txtFecha").val("");
-    $("#txtComentarios").val(0);
+    $("#txtComentarios").val("");
     $("#txtId").val("");
 
     $("#btnSiguiente1").removeAttr("hidden");
@@ -141,7 +141,7 @@ function siguienteClientes(){
         Swal.fire({
             icon: 'error',
             title: 'Campos invalidos',
-            text: 'Debes llenar todos los campos'
+            text: 'Debe llenar todos los campos'
         })
     }
 }
@@ -195,20 +195,27 @@ function agregarProductoVentaP(){
         var producto = JSON.parse(productos[pos]);
         traerCantidad();
         if(cantidadZapato >= cantidad){
-            var detalle = {
-                "producto" : producto,
-                "talla" : talla,
-                "color" : color,
-                "precio_unitario" : precio_unitario,
-                "cantidad" : cantidad,
-    
+            if(cantidad > 0){
+                var detalle = {
+                    "producto" : producto,
+                    "talla" : talla,
+                    "color" : color,
+                    "precio_unitario" : precio_unitario,
+                    "cantidad" : cantidad,
+        
+                }
+                detalles.push(detalle);
+                actualizarDetalleProductoVentas(0);
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'Ingrese una cantidad mayor a cero'
+                })
             }
-            detalles.push(detalle);
-            actualizarDetalleProductoVentas(0);
         } else {
             Swal.fire({
                 icon: 'error',
-                text: 'Escriba una cantidad menor'
+                text: 'No hay suficiente cantidad en el inventario'
             })
         }
         
@@ -223,31 +230,39 @@ function agregarProductoVentaP(){
         var dett =detalles;
         traerCantidad();
         if(cantidadZapato >= cantidad){
-            data={
-                "txtProducto" : producto.id,
-                "txtPrecioProducto" : producto.precio,
-                "txtTalla" : talla,
-                "txtColor" : color,
-                "txtCantidad" : cantidad,
-                "txtIdVenta" : venta.id,
-                "txtIdProducto" : producto.id,
+            if(cantidad > 0){
+                data={
+                    "txtProducto" : producto.id,
+                    "txtPrecioProducto" : producto.precio,
+                    "txtTalla" : talla,
+                    "txtColor" : color,
+                    "txtCantidad" : cantidad,
+                    "txtIdVenta" : venta.id,
+                    "txtIdProducto" : producto.id,
+                }
+                $.ajax({
+                        type: "POST",
+                        url: "http://127.0.0.1:5000/ventas/agregar_detalle",
+                        async: true,
+                        data:data,
+                        success: function (data) {
+                            var json_data = JSON.parse(data);
+                            detalle.id = json_data.result;
+                            detalles.push(detalle);
+                            actualizarDetalleProductoVentas(1);
+                        }
+                });
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    text: 'Ingrese una cantidad mayor a cero'
+                })
             }
-            $.ajax({
-                    type: "POST",
-                    url: "http://127.0.0.1:5000/ventas/agregar_detalle",
-                    async: true,
-                    data:data,
-                    success: function (data) {
-                        var json_data = JSON.parse(data);
-                        detalle.id = json_data.result;
-                        detalles.push(detalle);
-                        actualizarDetalleProductoVentas(1);
-                    }
-            });
+            
         } else{
             Swal.fire({
                 icon: 'error',
-                text: 'Escriba una cantidad menor'
+                text: 'No hay suficiente cantidad en el inventario'
             })
         }
 
@@ -260,7 +275,10 @@ function agregarProductoVentaP(){
             detalle = detalles[i];
             str+="<tr>";
             str+="<td>"+detalle.producto.nombre+"</td>";
+            str+="<td>"+detalle.talla+"</td>";
+            str+="<td>"+detalle.color+"</td>";
             str+="<td>"+detalle.cantidad+"</td>";
+            str+="<td> $"+detalle.precio_unitario+"</td>";
             if(des==0)
                 str+="<td><button class='btn btn-smal btn-danger' onclick='eliminarProductoVemtaP("+i+")'><i class='fas fa-trash'></i></button></td>";
             else
@@ -269,6 +287,34 @@ function agregarProductoVentaP(){
         }
     
         $("#tblDetalleVenta").html(str);
+    }
+
+    function actualizarDetalleProductoVentas2(id){
+        data = {
+            "txtId" : id
+        }
+        $.ajax({
+            type: "GET",
+            url: "http://127.0.0.1:5000/ventas/getDetalles",
+            data : data,
+            async: true,
+            success: function (data) {
+                detalles = JSON.parse(data);
+                var str = "";    
+                for(var i = 0; i < detalles.length; i++){
+                    detalle = detalles[i];
+                    str+="<tr>";
+                    str+="<td>"+detalle.producto.nombre+"</td>";
+                    str+="<td>"+detalle.talla+"</td>";
+                    str+="<td>"+detalle.color+"</td>";
+                    str+="<td>"+detalle.cantidad+"</td>";
+                    str+="<td> $"+detalle.precio_unitario+"</td>";
+                    str+="</tr>";
+                }
+            
+                $("#tblDetalleVenta2").html(str);
+            }
+        });
     }
 
 function eliminarProductoVentaP2(pos){
@@ -332,7 +378,7 @@ function eliminarProductoVentaP2(pos){
                     if(json_data.result=="OK"){
                         Swal.fire({
                             icon: 'success',
-                            title: 'Producto agregado correctamente',
+                            title: 'Venta agregado correctamente',
                             showDenyButton: false,
                             confirmButtonText: `Ok`
                           }).then((result) => {
@@ -361,16 +407,9 @@ function eliminarProductoVentaP2(pos){
     }
     function modificarVentas(vent){
         venta = vent;
-        var valor=venta.cliente_id;
-        llenarListaClientes2(venta.cliente_id);
-        $("#modalVentas").modal("show");
-        $("#modalVentasLabel").html("Modificar Venta");
-        $("#txtId").val(venta.id);
-        $("#txtPrecio").val(venta.precio);
-        $("#txtFecha").val(venta.date);
-        $("#txtComentarios").val(venta.comentarios);
-        $("#btnSiguiente2").removeAttr("hidden");
-        $("#btnSiguiente1").prop("hidden", "true");
+        $("#modalVentas3").modal("show");
+        $("#txtPrecioTotal").html("Precio total: $" + venta.precio);
+        actualizarDetalleProductoVentas2(venta.id);
     }
     function confirmarVenta(id){
         Swal.fire({
