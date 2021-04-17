@@ -1,6 +1,6 @@
-from .models import Compra,Proveedor,DetalleCompra,MateriaPrima
-from flask import Blueprint, render_template, request, redirect,url_for, make_response, flash
-from flask_security.decorators import roles_required,login_required,roles_accepted
+from .models import Compra, Proveedor, DetalleCompra, MateriaPrima
+from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_security.decorators import roles_accepted
 from . import db
 import json
 

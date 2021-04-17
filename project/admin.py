@@ -1,11 +1,11 @@
-from flask import Blueprint, render_template, request, redirect,url_for, make_response, flash
-from flask_security import login_required, current_user,SQLAlchemyUserDatastore
-from flask_security.decorators import roles_required,login_required,roles_accepted
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Blueprint, render_template, request, redirect,url_for, flash
+from flask_security import SQLAlchemyUserDatastore
+from flask_security.decorators import roles_accepted
+from werkzeug.security import generate_password_hash
 from . import db
 from .models import User,Role
 import json
-#from .models import Producto
+
 
 #nombre del blueprint (abreviado), el prefijo debe ser el nombre del modulo
 admin = Blueprint('admin', __name__, url_prefix="/admin")

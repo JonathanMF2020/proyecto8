@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, request, redirect,url_for, make_response, flash
-from flask_security import login_required, current_user
-from flask_security.decorators import roles_required
+from flask import Blueprint, render_template, request, redirect, flash
+#from flask_security import login_required, current_user
+#from flask_security.decorators import roles_required
 from . import db
 from .models import Producto, Ejemplar, DetalleProducto, MateriaPrima
 import json
