@@ -1,4 +1,4 @@
-var ip = "http://e23f8d156612.ngrok.io"
+var ip = "http://984e801b4218.ngrok.io"
 var productos = [];
 var queryString = window.location.search;
 var urlParams = new URLSearchParams(queryString);
